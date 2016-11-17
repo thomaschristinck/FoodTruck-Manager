@@ -1,0 +1,22 @@
+<manager id="1">
+  <supplies id="2"/>
+  <items id="3"/>
+  <orders id="4"/>
+  <staffs id="5">
+    <staff id="6">
+      <name>Jimmy</name>
+      <role>Cook</role>
+    </staff>
+  </staffs>
+  <shifts id="7">
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="8">
+      <startTime id="9">09:00:00</startTime>
+      <endTime id="10">10:30:00</endTime>
+      <shiftDate id="11">2016-10-30</shiftDate>
+      <staff id="12">
+        <staff reference="6"/>
+      </staff>
+    </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
+  </shifts>
+  <equipement id="13"/>
+</manager>
