@@ -16,7 +16,7 @@ class Order{
   int orderNumber;
   Date orderDate;
   Time orderTime;
-  * -> 1 Item item;
+  * -> * Item item;
 }
 
 class Staff{
@@ -35,7 +35,9 @@ class Shift{
 class Equipement{
   name;
   int quantity;
-  }
+  
+  
+}
 
 class FoodTruckManager{
   singleton;
