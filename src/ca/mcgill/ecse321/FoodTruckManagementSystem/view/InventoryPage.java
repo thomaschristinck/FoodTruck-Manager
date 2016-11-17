@@ -69,7 +69,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private HashMap<Integer, Supply> supply;
 	private Integer selectedEquipment = -1;
 	private HashMap<Integer, Equipment> equipment;
-	
+	private Integer selectedEquipment2 = -1;
+	private HashMap<Integer, Equipment> equipment2;
 	
 	
 	/*Creates new form EventRegistrationPage */
@@ -107,8 +108,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		equipmentList2 = new JComboBox<String>(new String[0]);
 		equipmentList2.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
-				selectedEquipment = cb.getSelectedIndex();
+				JComboBox<String> cb2 = (JComboBox<String>) evt.getSource();
+				selectedEquipment2 = cb2.getSelectedIndex();
 			}
 		});
 		equipmentListLabel2 = new JLabel();
@@ -187,6 +188,12 @@ private static final long serialVersionUID = -8062635784771606869L;
 		addEquipmentToInventoryButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				addEquipmentToInventoryButtonActionPerformed(evt);
+			}
+		});
+		
+		removeEquipmentFromInventoryButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt){
+				removeEquipmentFromInventoryButtonActionPerformed(evt);
 			}
 		});
 		
@@ -324,7 +331,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			equipmentList.setSelectedIndex(selectedEquipment);
 			
 			//Equipment List 2
-			equipment = new HashMap<Integer, Equipment>();
+			equipment2 = new HashMap<Integer, Equipment>();
 			equipmentList2.removeAllItems();
 			Iterator<Equipment> eqIt = fm.getEquipment().iterator();
 			Integer k = 0;
@@ -334,8 +341,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 				equipmentList2.addItem(e.getName() + " (" + e.getQuantity() + ")");
 				k++;
 			}
-			selectedEquipment = -1;
-			equipmentList2.setSelectedIndex(selectedEquipment);
+			selectedEquipment2 = -1;
+			equipmentList2.setSelectedIndex(selectedEquipment2);
 		}
 		
 		//Supply text fields empty
@@ -386,7 +393,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		EquipmentController ec = new EquipmentController();
 		error = null;
 		try {
-			ec.removeEquipment(equipment.get(selectedEquipment));
+			ec.removeEquipment(equipment.get(selectedEquipment2));
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
@@ -420,6 +427,21 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Update visuals
 		refreshData();
 	}
+	
+	private void removeEquipmentFromInventoryButtonActionPerformed(java.awt.event.ActionEvent evt){
+		//Call the controller
+		EquipmentController ec = new EquipmentController();
+		error = null;
+		try {
+			ec.removeFromEquipmentInventory(equipment.get(selectedEquipment), equipmentQuantityField.getText());
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		} 
+		
+		//Update visuals
+		refreshData();
+	}
+	
 	
 	public String bestBeforeToString(Date bestBefore){
 		String date = bestBefore.toString();

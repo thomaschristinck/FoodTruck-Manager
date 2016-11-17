@@ -29,34 +29,33 @@
       <role>Cook</role>
     </staff>
     <staff id="15">
-      <name>Thomas Christinck</name>
-      <role>Cook</role>
-    </staff>
-    <staff id="16">
       <name>Tom Bisset</name>
       <role>Cash</role>
     </staff>
-    <staff id="17">
+    <staff id="16">
       <name>Huck Sasche</name>
       <role>Chef</role>
     </staff>
-    <staff id="18">
+    <staff id="17">
       <name>Alex Torske</name>
       <role>Management</role>
     </staff>
-    <staff id="19">
+    <staff id="18">
       <name>Carlo Mole</name>
       <role>Cook</role>
     </staff>
   </staffs>
-  <shifts id="20">
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="21">
-      <startTime id="22">18:00:00</startTime>
-      <endTime id="23">22:00:00</endTime>
-      <shiftDate id="24">2016-10-27</shiftDate>
-      <staff id="25">
+  <shifts id="19">
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="20">
+      <startTime id="21">18:00:00</startTime>
+      <endTime id="22">22:00:00</endTime>
+      <shiftDate id="23">2016-10-27</shiftDate>
+      <staff id="24">
         <staff reference="14"/>
-        <staff reference="15"/>
+        <staff id="25">
+          <name>Thomas Christinck</name>
+          <role>Cook</role>
+        </staff>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
     <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="26">
@@ -64,10 +63,19 @@
       <endTime id="28">16:00:00</endTime>
       <shiftDate id="29">2016-10-28</shiftDate>
       <staff id="30">
+        <staff reference="15"/>
         <staff reference="16"/>
-        <staff reference="17"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
   </shifts>
-  <equipment id="31"/>
+  <equipment id="31">
+    <equipment id="32">
+      <name>Butter</name>
+      <quantity>5</quantity>
+    </equipment>
+    <equipment id="33">
+      <name>Forks</name>
+      <quantity>90</quantity>
+    </equipment>
+  </equipment>
 </manager>
