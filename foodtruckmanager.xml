@@ -7,75 +7,70 @@
     </supply>
     <supply id="5">
       <name>Carrots</name>
-      <quantity>23</quantity>
+      <quantity>40</quantity>
       <bestBefore id="6">2016-11-08</bestBefore>
     </supply>
     <supply id="7">
-      <name>Carrots (LG)</name>
-      <quantity>60</quantity>
-      <bestBefore id="8">2016-11-15</bestBefore>
-    </supply>
-    <supply id="9">
       <name>Flour (20 lb bags)</name>
       <quantity>10</quantity>
-      <bestBefore id="10">2019-11-28</bestBefore>
+      <bestBefore id="8">2019-11-28</bestBefore>
     </supply>
   </supplies>
-  <items id="11"/>
-  <orders id="12"/>
-  <staffs id="13">
-    <staff id="14">
+  <items id="9"/>
+  <orders id="10"/>
+  <staffs id="11">
+    <staff id="12">
       <name>Jacqueline Taylor</name>
       <role>Cook</role>
     </staff>
-    <staff id="15">
+    <staff id="13">
       <name>Tom Bisset</name>
       <role>Cash</role>
     </staff>
-    <staff id="16">
+    <staff id="14">
       <name>Huck Sasche</name>
       <role>Chef</role>
     </staff>
-    <staff id="17">
+    <staff id="15">
       <name>Alex Torske</name>
       <role>Management</role>
     </staff>
-    <staff id="18">
+    <staff id="16">
       <name>Carlo Mole</name>
       <role>Cook</role>
     </staff>
   </staffs>
-  <shifts id="19">
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="20">
-      <startTime id="21">18:00:00</startTime>
-      <endTime id="22">22:00:00</endTime>
-      <shiftDate id="23">2016-10-27</shiftDate>
-      <staff id="24">
-        <staff reference="14"/>
-        <staff id="25">
+  <shifts id="17">
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="18">
+      <startTime id="19">18:00:00</startTime>
+      <endTime id="20">22:00:00</endTime>
+      <shiftDate id="21">2016-10-27</shiftDate>
+      <staff id="22">
+        <staff reference="12"/>
+        <staff id="23">
           <name>Thomas Christinck</name>
           <role>Cook</role>
         </staff>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="26">
-      <startTime id="27">10:00:00</startTime>
-      <endTime id="28">16:00:00</endTime>
-      <shiftDate id="29">2016-10-28</shiftDate>
-      <staff id="30">
-        <staff reference="15"/>
-        <staff reference="16"/>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="24">
+      <startTime id="25">10:00:00</startTime>
+      <endTime id="26">16:00:00</endTime>
+      <shiftDate id="27">2016-10-28</shiftDate>
+      <staff id="28">
+        <staff reference="13"/>
+        <staff reference="14"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
   </shifts>
-  <equipment id="31">
-    <equipment id="32">
-      <name>Butter</name>
-      <quantity>5</quantity>
-    </equipment>
-    <equipment id="33">
+  <equipment id="29">
+    <equipment id="30">
       <name>Forks</name>
       <quantity>90</quantity>
+    </equipment>
+    <equipment id="31">
+      <name>Spoons</name>
+      <quantity>100</quantity>
     </equipment>
   </equipment>
 </manager>
