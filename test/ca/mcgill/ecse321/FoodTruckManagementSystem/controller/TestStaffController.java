@@ -31,7 +31,7 @@ public class TestStaffController {
 
 	@After
 	public void tearDown() throws Exception {
-		//clear all registrations
+		//Clear all registrations
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		fm.delete();
 	}
@@ -48,7 +48,7 @@ public class TestStaffController {
 		try {
 			sc.createStaff(name, role);
 		} catch (InvalidInputException e) {
-			//check no error occurred
+			//Check no error occurred
 			fail();
 		}
 		
