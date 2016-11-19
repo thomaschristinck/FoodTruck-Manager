@@ -61,7 +61,11 @@
   <equipment id="27">
     <equipment id="28">
       <name>Spoons</name>
-      <quantity>110</quantity>
+      <quantity>100</quantity>
+    </equipment>
+    <equipment id="29">
+      <name>Large Forks</name>
+      <quantity>100</quantity>
     </equipment>
   </equipment>
 </manager>
