@@ -4,6 +4,7 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.model;
 
 import java.sql.Date;
+
 import java.sql.Time;
 import java.util.*;
 
