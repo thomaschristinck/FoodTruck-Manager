@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.controller;
 
-import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Equipment;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStream;
@@ -89,12 +88,11 @@ public class SupplyController {
 			error = error + " Must select supply!";
 		try{
 			int quant = Integer.parseInt(quantity);
-			if (quant <= 0){
+			if (quant <= 0)
 				error = error + " Supply must have a quantity greater than 0 to be removed!";
-				if (supply != null){
-					if (supply.getQuantity() - quant < 0)
-						error = error + " Cannot remove supply from inventory that does not exist!";
-				}
+			if (supply != null){
+				if (supply.getQuantity() - quant < 0)
+					error = error + " Cannot have less than zero supplies!";
 			}
 		}
 		catch(NumberFormatException e){
@@ -103,8 +101,6 @@ public class SupplyController {
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
-	
-		
 
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		//Find supply and subtract the requested quantity to that supply

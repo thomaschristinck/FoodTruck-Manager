@@ -488,7 +488,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		EquipmentController ec = new EquipmentController();
 		error = null;
 		try {
-			ec.removeEquipment(equipment2.get(selectedEquipment2));
+			ec.removeEquipment(equipment.get(selectedEquipment2));
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
