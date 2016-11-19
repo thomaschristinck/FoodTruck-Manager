@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.20.1.4071 modeling language!*/
+/*This code was generated using the UMPLE 1.24.0-2a9bef6 modeling language!*/
 
 package ca.mcgill.ecse321.FoodTruckManagementSystem.model;
 import java.util.*;
 
-// line 9 "../../../../../FoodTruckManager.ump"
-// line 57 "../../../../../FoodTruckManager.ump"
+// line 10 "../../../../../../../../ump/tmp28017/model.ump"
+// line 58 "../../../../../../../../ump/tmp28017/model.ump"
 public class Item
 {
 
@@ -15,7 +15,7 @@ public class Item
 
   //Item Attributes
   private String name;
-  private String itemQuantity;
+  private String description;
 
   //Item Associations
   private List<Supply> supply;
@@ -24,10 +24,10 @@ public class Item
   // CONSTRUCTOR
   //------------------------
 
-  public Item(String aName, String aItemQuantity)
+  public Item(String aName, String aDescription)
   {
     name = aName;
-    itemQuantity = aItemQuantity;
+    description = aDescription;
     supply = new ArrayList<Supply>();
   }
 
@@ -43,10 +43,10 @@ public class Item
     return wasSet;
   }
 
-  public boolean setItemQuantity(String aItemQuantity)
+  public boolean setDescription(String aDescription)
   {
     boolean wasSet = false;
-    itemQuantity = aItemQuantity;
+    description = aDescription;
     wasSet = true;
     return wasSet;
   }
@@ -56,9 +56,9 @@ public class Item
     return name;
   }
 
-  public String getItemQuantity()
+  public String getDescription()
   {
-    return itemQuantity;
+    return description;
   }
 
   public Supply getSupply(int index)
@@ -156,10 +156,10 @@ public class Item
 
   public String toString()
   {
-	  String outputString = "";
+    String outputString = "";
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
-            "itemQuantity" + ":" + getItemQuantity()+ "]"
+            "description" + ":" + getDescription()+ "]"
      + outputString;
   }
 }

@@ -168,6 +168,7 @@ public class TestStaffController {
 		//Check no change in memory
 		assertEquals(0, fm.getStaffs().size());
 	}
+	
 	@Test
 	public void testCreateShift() {
 		FoodTruckManager fm = FoodTruckManager.getInstance();
@@ -184,18 +185,19 @@ public class TestStaffController {
 		try{
 			sc.createShift(shiftDate, startTime, endTime);
 		} catch (InvalidInputException e){
-			//check no error
+			//Check no error occurred
 			fail();
 		}
-		//check model in memory
+		//Check model in memory
 		checkResultShift(startTime, endTime, shiftDate, fm);
 		
 		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
 		
-		//check file contents
+		//Check file contents
 		checkResultShift(startTime, endTime, shiftDate, fm2);
 	}
-	//Edit code below here
+
+	
 	@Test 
 	public void testCreateShiftNull(){
 		FoodTruckManager fm = FoodTruckManager.getInstance();

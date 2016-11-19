@@ -2,12 +2,13 @@
 /*This code was generated using the UMPLE 1.20.1.4071 modeling language!*/
 
 package ca.mcgill.ecse321.FoodTruckManagementSystem.model;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.util.*;
 
-// line 15 "../../../../../FoodTruckManager.ump"
-// line 62 "../../../../../FoodTruckManager.ump"
+// line 14 "../../../../../FoodTruckManager.ump"
+// line 61 "../../../../../FoodTruckManager.ump"
 public class Order
 {
 

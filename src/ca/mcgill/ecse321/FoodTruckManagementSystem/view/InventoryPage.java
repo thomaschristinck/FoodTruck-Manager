@@ -72,12 +72,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private Integer selectedSupply = -1;
 	private HashMap<Integer, Supply> supply;
 	private Integer selectedSupply2 = -1;
-	private HashMap<Integer, Supply> supply2;
 	private Integer selectedEquipment = -1;
 	private HashMap<Integer, Equipment> equipment;
 	private Integer selectedEquipment2 = -1;
-	private HashMap<Integer, Equipment> equipment2;
-	
+
 	
 	/*Creates new form EventRegistrationPage */
 	public InventoryPage(){
@@ -291,6 +289,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
 				{supplyNameLabel, supplyBestBeforeLabel, supplyQuantityLabel});
 		
+		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
+				{addEquipmentButton, removeEquipmentButton, addSupplyButton, removeSupplyButton});
+		
+		
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
 				.addComponent(errorMessage)
@@ -357,7 +359,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 			supplyList.setSelectedIndex(selectedSupply);
 			
 			//Supply list 1
-			supply2 = new HashMap<Integer, Supply>();
 			supplyList2.removeAllItems();
 			Iterator<Supply> suIt = fm.getSupplies().iterator();
 			Integer i = 0;
@@ -386,7 +387,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 			equipmentList.setSelectedIndex(selectedEquipment);
 			
 			//Equipment List 2
-			equipment2 = new HashMap<Integer, Equipment>();
 			equipmentList2.removeAllItems();
 			Iterator<Equipment> eqIt = fm.getEquipment().iterator();
 			Integer k = 0;
@@ -488,7 +488,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		EquipmentController ec = new EquipmentController();
 		error = null;
 		try {
-			ec.removeEquipment(equipment2.get(selectedEquipment2));
+			ec.removeEquipment(equipment.get(selectedEquipment2));
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 

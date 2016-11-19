@@ -2,10 +2,11 @@
 /*This code was generated using the UMPLE 1.20.1.4071 modeling language!*/
 
 package ca.mcgill.ecse321.FoodTruckManagementSystem.model;
+
 import java.sql.Date;
 
 // line 3 "../../../../../FoodTruckManager.ump"
-// line 52 "../../../../../FoodTruckManager.ump"
+// line 51 "../../../../../FoodTruckManager.ump"
 public class Supply
 {
 

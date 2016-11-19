@@ -78,12 +78,11 @@ public class EquipmentController {
 			error = error + " Must select equipment!";
 		try{
 			int quant = Integer.parseInt(quantity);
-			if (quant <= 0){
+			if (quant <= 0)
 				error = error + " Equipment must have a quantity greater than 0 to be removed!";
-				if (equipment != null){
-					if (equipment.getQuantity() - quant < 0)
-						error = error + " Cannot remove equipment from inventory that does not exist!";
-				}
+			if (equipment != null){
+				if (equipment.getQuantity() - quant < 0)
+					error = error + " Cannot have less than zero of a type of equipment!";
 			}
 		}
 		catch(NumberFormatException e){

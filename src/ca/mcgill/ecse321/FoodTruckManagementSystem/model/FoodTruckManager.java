@@ -3,12 +3,11 @@
 
 package ca.mcgill.ecse321.FoodTruckManagementSystem.model;
 import java.util.*;
-
 import java.sql.Date;
 import java.sql.Time;
 
-// line 42 "../../../../../FoodTruckManager.ump"
-// line 82 "../../../../../FoodTruckManager.ump"
+// line 41 "../../../../../FoodTruckManager.ump"
+// line 81 "../../../../../FoodTruckManager.ump"
 public class FoodTruckManager
 {
 
