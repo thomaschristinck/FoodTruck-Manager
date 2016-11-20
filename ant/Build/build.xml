@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="FoodTruckManager" default="run" basedir=".">
+	
+	<target name="delete">
+		<delete dir="bin"/>
+		<delete dir="src"/>
+		<delete dir="lib"/>
+		<delete dir="test"/>
+		<delete dir="test-output"/>
+	</target>
+	
+	<path id="classpath">
+		<path location="lib">
+			<fileset dir="lib" includes="*.jar"></fileset>
+		</path>
+		<pathelement location="bin"/>
+		<path location="test">
+			<fileset dir="test/ca/mcgill/ecse321/FoodTruckManagementSystem" includes="*.java"></fileset>
+		</path>
+	</path>
+	
+	<target name="create" depends="delete">
+		<mkdir dir="bin"/>
+		<mkdir dir="src"/>
+		<mkdir dir="lib"/>
+		<mkdir dir="test"/>
+		<mkdir dir="test-output"/>
+	</target>
+		
+	<target name="copy" depends="create">
+		<copydir dest="src" src="/Users/thomaschristinck/Documents/Git/Team-6/src" excludes="**/lib/**"></copydir>
+		<copy todir="lib" overwrite="true">
+			<fileset dir="/Users/thomaschristinck/Documents/Git/Team-6/lib" includes="**/*.jar"></fileset>
+		</copy>	
+		<copy todir="test" overwrite="true">
+			<fileset dir="/Users/thomaschristinck/Documents/Git/Team-6/test" includes="**/*.java"></fileset>
+		</copy>	
+		<copy todir="lib" overwrite="true">
+			<fileset dir="/Users/thomaschristinck/Downloads/eclipse/plugins/org.junit_4.11.0.v201303080030" includes="**/*.jar"></fileset>
+		</copy>	
+	</target>
+	
+	<target name="compile" depends="copy">
+		<javac classpathref="classpath" includeantruntime="true" srcdir="/Users/thomaschristinck/Documents/Git/Team-6/ant/Build/src" destdir="/Users/thomaschristinck/Documents/Git/Team-6/ant/Build/bin" includes="**/*.java"></javac>
+		<javac classpathref="classpath" includeantruntime="true" srcdir="/Users/thomaschristinck/Documents/Git/Team-6/ant/Build/test" destdir="/Users/thomaschristinck/Documents/Git/Team-6/ant/Build/test-output" includes="**/*.java"></javac>
+	</target>
+	
+	<target name="run" depends="compile">
+		<java classpathref="classpath" classname="AllTests" fork="true"></java>
+	</target>
+</project>
