@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Equipment;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Order;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
@@ -15,6 +17,8 @@ public class PersistenceStaffController {
 		PersistenceXStream.setAlias("manager", FoodTruckManager.class);
 		PersistenceXStream.setAlias("equipment", Equipment.class);
 		PersistenceXStream.setAlias("supply", Supply.class);
+		PersistenceXStream.setAlias("order", Order.class);
+		PersistenceXStream.setAlias("item", Item.class);
 		
 		
 	}
@@ -38,6 +42,12 @@ public class PersistenceStaffController {
 			Iterator<Equipment> eIt = fm2.getEquipment().iterator();
 			while(eIt.hasNext())
 				fm.addEquipment(eIt.next());
+			Iterator<Order> oIt = fm2.getOrders().iterator();
+			while(oIt.hasNext())
+				fm.addOrder(oIt.next());
+			Iterator<Item> iIt = fm2.getItems().iterator();
+			while(iIt.hasNext())
+				fm.addItem(iIt.next());
 		}
 	}
 }
