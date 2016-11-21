@@ -13,9 +13,18 @@
 		<path location="lib">
 			<fileset dir="lib" includes="*.jar"></fileset>
 		</path>
+		<path location="src">
+			<fileset dir="src/ca/mcgill/ecse321/FoodTruckManagementSystem/application" includes="*.java"></fileset>
+		</path>
 		<pathelement location="bin"/>
+	</path>
+	
+	<path id="testsuite">
 		<path location="test">
 			<fileset dir="test/ca/mcgill/ecse321/FoodTruckManagementSystem" includes="*.java"></fileset>
+		</path>
+		<path location="lib">
+			<fileset dir="lib" includes="*.jar"></fileset>
 		</path>
 	</path>
 	
@@ -46,6 +55,11 @@
 	</target>
 	
 	<target name="run" depends="compile">
-		<java classpathref="classpath" classname="AllTests" fork="true"></java>
+		<java classpathref="classpath" classname="FoodTruckManager" fork="true"></java>
+		<junit haltonfailure="false" printsummary="true">
+			<classpath refid="testsuite"></classpath>
+			<test name="AllTests" todir="test-output"></test>
+			<formatter type="plain"/>
+		</junit>
 	</target>
 </project>
