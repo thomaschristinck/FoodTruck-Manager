@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.InvalidInputException;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.StaffController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;

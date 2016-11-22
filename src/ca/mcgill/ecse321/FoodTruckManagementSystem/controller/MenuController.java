@@ -27,12 +27,16 @@ public class MenuController {
 	
 	public void addSupply(Supply supply, Item item) throws InvalidInputException{
 		String error = "";
-		if (item == null)
+		if (item == null){
 			error = error + " Item name cannot be empty!";
+		}
+		else{
+			if(item.indexOfSupply(supply) >= 0)
+				error = error + " Item already has supply listed!";
+		}
 		if (supply== null)
 			error = error + " Item description cannot be empty!";
-		if(item.indexOfSupply(supply) >= 0)
-			error = error + " Item already has supply listed!";
+		
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);

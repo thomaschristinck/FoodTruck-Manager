@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
 import java.awt.Color;
-
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.InvalidInputException;
