@@ -69,7 +69,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 
 	
-	/*Creates new form EventRegistrationPage */
+	/* new form EventRegistrationPage */
 	public MenuPage(){
 		initComponents();
 		refreshData();
@@ -94,8 +94,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		itemSupplyList = new JComboBox<String>(new String[0]);
 		itemSupplyList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
-				selectedItemSupply = cb.getSelectedIndex();
+				JComboBox<String> cb1 = (JComboBox<String>) evt.getSource();
+				selectedItemSupply = cb1.getSelectedIndex();
 			}
 		});
 		itemSupplyListLabel = new JLabel();
@@ -103,8 +103,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		itemList = new JComboBox<String>(new String[0]);
 		itemList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
-				selectedItem = cb.getSelectedIndex();
+				JComboBox<String> cb2 = (JComboBox<String>) evt.getSource();
+				selectedItem = cb2.getSelectedIndex();
 			}
 		});
 		itemListLabel = new JLabel();
@@ -114,8 +114,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		itemList2 = new JComboBox<String>(new String[0]);
 		itemList2.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb2 = (JComboBox<String>) evt.getSource();
-				selectedItem2 = cb2.getSelectedIndex();
+				JComboBox<String> cb3 = (JComboBox<String>) evt.getSource();
+				selectedItem2 = cb3.getSelectedIndex();
 			}
 		});
 		itemListLabel2 = new JLabel();
@@ -123,8 +123,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		orderItemList = new JComboBox<String>(new String[0]);
 		orderItemList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
-				selectedOrderItem = cb.getSelectedIndex();
+				JComboBox<String> cb4 = (JComboBox<String>) evt.getSource();
+				selectedOrderItem = cb4.getSelectedIndex();
 			}
 		});
 		orderItemListLabel = new JLabel();
@@ -332,11 +332,11 @@ private static final long serialVersionUID = -8062635784771606869L;
 			
 			//Item supply list 
 			itemSupply = new HashMap<Integer, Supply>();
-			itemSupplyList.removeAllItems();
 			if(itemList.getSelectedItem() == null){
 				itemSupplyList = null;
 			}
 			else{
+				itemSupplyList.removeAllItems();
 				Item it = (Item) itemList.getSelectedItem();
 				for(int p = 0; p < it.getSupply().size(); p++){
 					Supply s = it.getSupply(p);
@@ -356,7 +356,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			while(iIt.hasNext()){
 				Item itt = iIt.next();
 				item.put(j, itt);
-				supplyList.addItem("" + itt.getName());
+				itemList.addItem("" + itt.getName());
 				j++;
 			}
 			selectedItem = -1;
@@ -378,10 +378,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 			
 			//Order Item List 
 			orderItem = new HashMap<Integer, Item>();
-			orderItemList.removeAllItems();
 			//Iterator<Supply> suIt = fm.getSupplies().iterator();
 			int orderNumber = fm.numberOfOrders();
 			if(orderNumber > 0){
+				orderItemList.removeAllItems();
 				Order order = fm.getOrder(orderNumber);
 				for(int p = 0; p < order.getItem().size(); p++){
 					Item s = order.getItem(p);
