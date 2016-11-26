@@ -331,16 +331,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 			supplyList.setSelectedIndex(selectedSupply);
 			
 			//Item supply list 
-			itemSupply = new HashMap<Integer, Supply>();
+			supply = new HashMap<Integer, Supply>();
 			if(itemList.getSelectedItem() == null){
 				itemSupplyList = null;
 			}
 			else{
-				itemSupplyList.removeAllItems();
-				Item it = (Item) itemList.getSelectedItem();
+				if(itemSupplyList != null){
+					itemSupplyList.removeAllItems();
+				}
+				Item it = item.get(selectedItem);
 				for(int p = 0; p < it.getSupply().size(); p++){
 					Supply s = it.getSupply(p);
-					itemSupply.put(p, s);
+					supply.put(p, s);
 					itemSupplyList.addItem("" + s.getName() + " (" + s.getQuantity() + ")"+ "BB: " + bestBeforeToString(s.getBestBefore()));
 					selectedItemSupply = -1;
 					itemSupplyList.setSelectedIndex(selectedItemSupply);
@@ -370,7 +372,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			while(itIt.hasNext()){
 				Item itt = itIt.next();
 				item.put(k, itt);
-				supplyList.addItem("" + itt.getName());
+				itemList2.addItem("" + itt.getName());
 				k++;
 			}
 			selectedItem2 = -1;
@@ -384,6 +386,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 				orderItemList.removeAllItems();
 				Order order = fm.getOrder(orderNumber);
 				for(int p = 0; p < order.getItem().size(); p++){
+					System.out.println("INDEX is " + p);
 					Item s = order.getItem(p);
 					orderItem.put(p, s);
 					orderItemList.addItem("" + s.getName());

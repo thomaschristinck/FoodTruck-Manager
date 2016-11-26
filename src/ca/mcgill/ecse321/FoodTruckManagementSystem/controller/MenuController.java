@@ -35,7 +35,7 @@ public class MenuController {
 				error = error + " Item already has supply listed!";
 		}
 		if (supply== null)
-			error = error + " Item description cannot be empty!";
+			error = error + " Supply cannot be empty!";
 		
 		error = error.trim();
 		if(error.length() > 0)
@@ -52,7 +52,11 @@ public class MenuController {
 		if (item == null)
 			error = error + " Item name cannot be empty!";
 		if (supply== null)
-			error = error + " Item description cannot be empty!";
+			error = error + " Supply cannot be empty!";
+		if (supply != null && item != null){
+			if (!item.removeSupply(supply))
+				error = error + " Supply cannot be removed from an item it isn't listed for!";
+		}
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
@@ -101,16 +105,26 @@ public class MenuController {
 			throw new InvalidInputException(error);
 		
 		FoodTruckManager fm = FoodTruckManager.getInstance();
-		if(fm.getOrder(orderNumbers) == null){
+		if(fm.getOrders().size() == 0){
 			Calendar c = Calendar.getInstance();
-			Time orderTime = (Time) c.getTime();
 			java.util.Date utilDate = c.getTime();
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			Time orderTime = new Time(sqlDate.getTime());
 			Order order = new Order(orderNumbers, sqlDate, orderTime);
 			order.addItem(item);
 		}
 		else{
+			if (fm.getOrder(orderNumbers) == null){
+				Calendar c = Calendar.getInstance();
+				java.util.Date utilDate = c.getTime();
+				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+				Time orderTime = new Time(sqlDate.getTime());
+				Order order = new Order(orderNumbers, sqlDate, orderTime);
+				order.addItem(item);
+			}
+			else{
 			fm.getOrder(orderNumbers).addItem(item);
+			}
 		}
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
