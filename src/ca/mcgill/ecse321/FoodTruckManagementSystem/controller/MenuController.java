@@ -27,6 +27,8 @@ public class MenuController {
 	
 	public void addSupply(Supply supply, Item item) throws InvalidInputException{
 		String error = "";
+		if (supply == null)
+			error = error + " Supply cannot be empty!";
 		if (item == null){
 			error = error + " Item name cannot be empty!";
 		}
@@ -34,9 +36,6 @@ public class MenuController {
 			if(item.indexOfSupply(supply) >= 0)
 				error = error + " Item already has supply listed!";
 		}
-		if (supply== null)
-			error = error + " Supply cannot be empty!";
-		
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
@@ -44,7 +43,6 @@ public class MenuController {
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		item.addSupply(supply);
 		PersistenceXStream.saveToXMLwithXStream(fm);
-		
 	}
 	
 	public void removeSupply(Supply supply, Item item) throws InvalidInputException{
@@ -124,6 +122,7 @@ public class MenuController {
 			}
 			else{
 			fm.getOrder(orderNumbers).addItem(item);
+			System.out.print("YES" + " (mc)");
 			}
 		}
 		PersistenceXStream.saveToXMLwithXStream(fm);

@@ -37,8 +37,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private JButton removeItemButton;
 	private JComboBox<String> supplyList;
 	private JLabel supplyListLabel;
-	private JComboBox<String> itemSupplyList;
-	private JLabel itemSupplyListLabel;
 	private JComboBox<String> itemList;
 	private JLabel itemListLabel;
 	
@@ -56,8 +54,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private String error = null;
 	private Integer selectedSupply = -1;
 	private HashMap<Integer, Supply> supply;
-	private Integer selectedItemSupply = -1;
-	private HashMap<Integer, Supply> itemSupply;
 	private Integer selectedItem = -1;
 	private Integer selectedItem2 = -1;
 	private HashMap<Integer, Item> item;
@@ -87,24 +83,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
 				selectedSupply = cb.getSelectedIndex();
+				System.out.println("SUPPLY LIST INDEX:" + cb.getSelectedIndex());
 			}
 		});
 		supplyListLabel = new JLabel();
 		
-		itemSupplyList = new JComboBox<String>(new String[0]);
-		itemSupplyList.addActionListener(new java.awt.event.ActionListener(){
-			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb1 = (JComboBox<String>) evt.getSource();
-				selectedItemSupply = cb1.getSelectedIndex();
-			}
-		});
-		itemSupplyListLabel = new JLabel();
 		
 		itemList = new JComboBox<String>(new String[0]);
 		itemList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				JComboBox<String> cb2 = (JComboBox<String>) evt.getSource();
 				selectedItem = cb2.getSelectedIndex();
+				System.out.println("ITEM LIST INDEX:" + cb2.getSelectedIndex());
 			}
 		});
 		itemListLabel = new JLabel();
@@ -159,7 +149,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 		descriptionLabel.setText("Item Description:");
 		supplyListLabel.setText("Select Supply:");
 		addToItemButton.setText("Add to Item");
-		itemSupplyListLabel.setText("Select Supply:");
 		removeFromItemButton.setText("Remove From Item");
 		addItemButton.setText("Add Item");
 		itemListLabel.setText("Select Item:");
@@ -237,7 +226,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(itemListLabel)
 								.addComponent(supplyListLabel)
 								.addComponent(addToItemButton)
-								.addComponent(itemSupplyListLabel)
 								.addComponent(removeFromItemButton)
 								.addComponent(removeItemButton)
 								.addComponent(viewMenuButton))
@@ -246,7 +234,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(descriptionTextField)
 								.addComponent(itemList)
 								.addComponent(supplyList)
-								.addComponent(itemSupplyList)
 								.addComponent(viewStatsButton))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(orderTitle)
@@ -297,9 +284,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 				.addGroup(layout.createParallelGroup()
 						.addComponent(addToItemButton))
 				.addGroup(layout.createParallelGroup()
-						.addComponent(itemSupplyListLabel)						
-						.addComponent(itemSupplyList))
-				.addGroup(layout.createParallelGroup()
 						.addComponent(removeFromItemButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(removeItemButton))
@@ -315,6 +299,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Set error message if there is one
 		errorMessage.setText(error);
 		if (error == null || error.length() == 0){
+			
 			//Supply list
 			supply = new HashMap<Integer, Supply>();
 			supplyList.removeAllItems();
@@ -323,32 +308,11 @@ private static final long serialVersionUID = -8062635784771606869L;
 			while(sIt.hasNext()){
 				Supply s = sIt.next();
 				supply.put(index,  s);
-				String listText = String.format("%-20s %s", s.getName() + " (" + s.getQuantity() + ")", "BB: " + bestBeforeToString(s.getBestBefore()));
-				supplyList.addItem(listText);
+				supplyList.addItem(s.getName() + " (" + s.getQuantity() + ") " + "BB: " + bestBeforeToString(s.getBestBefore()));
 				index++;
 			}
 			selectedSupply = -1;
 			supplyList.setSelectedIndex(selectedSupply);
-			
-			//Item supply list 
-			supply = new HashMap<Integer, Supply>();
-			if(itemList.getSelectedItem() == null){
-				itemSupplyList = null;
-			}
-			else{
-				if(itemSupplyList != null){
-					itemSupplyList.removeAllItems();
-				}
-				Item it = item.get(selectedItem);
-				for(int p = 0; p < it.getSupply().size(); p++){
-					Supply s = it.getSupply(p);
-					supply.put(p, s);
-					itemSupplyList.addItem("" + s.getName() + " (" + s.getQuantity() + ")"+ "BB: " + bestBeforeToString(s.getBestBefore()));
-					selectedItemSupply = -1;
-					itemSupplyList.setSelectedIndex(selectedItemSupply);
-				}
-			}
-			
 			
 			//Item list
 			item = new HashMap<Integer, Item>();
@@ -363,6 +327,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			}
 			selectedItem = -1;
 			itemList.setSelectedIndex(selectedItem);
+			
 			
 			//Item list 2
 			item = new HashMap<Integer, Item>();
@@ -386,7 +351,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 				orderItemList.removeAllItems();
 				Order order = fm.getOrder(orderNumber);
 				for(int p = 0; p < order.getItem().size(); p++){
-					System.out.println("INDEX is " + p);
 					Item s = order.getItem(p);
 					orderItem.put(p, s);
 					orderItemList.addItem("" + s.getName());
@@ -440,7 +404,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		MenuController mc = new MenuController();
 		error = null;
 		try {
-			mc.removeSupply(itemSupply.get(selectedItemSupply), item.get(selectedItem));
+			mc.removeSupply(supply.get(selectedSupply), item.get(selectedItem));
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
