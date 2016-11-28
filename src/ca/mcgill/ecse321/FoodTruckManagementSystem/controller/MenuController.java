@@ -163,7 +163,7 @@ public class MenuController {
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
-	public void viewMenu(){
+	public void viewMenu() throws IOException{
 		 try {
 			 FoodTruckManager fm = FoodTruckManager.getInstance();
 			 File file = new File("filename.txt");
@@ -191,7 +191,7 @@ public class MenuController {
 			 out.close();
 			 java.awt.Desktop.getDesktop().edit(file);
 		 } catch (IOException e) {
-			 //fail()?
+			 throw new IOException(e);
 		 }
 	}
 }

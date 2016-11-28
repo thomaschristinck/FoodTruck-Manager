@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
 import java.awt.Color;
-
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -474,8 +474,11 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Call the controller
 		MenuController mc = new MenuController();
 		error = null;
-		mc.viewMenu();
-		
+		try {
+			mc.viewMenu();
+		} catch (IOException e) {
+			error = e.getMessage();
+		} 
 		//Update visuals
 		refreshData();
 	}
