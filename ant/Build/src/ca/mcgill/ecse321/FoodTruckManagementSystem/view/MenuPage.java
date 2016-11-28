@@ -69,7 +69,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 
 	
-	/*Creates new form EventRegistrationPage */
+	/* new form EventRegistrationPage */
 	public MenuPage(){
 		initComponents();
 		refreshData();
@@ -94,8 +94,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		itemSupplyList = new JComboBox<String>(new String[0]);
 		itemSupplyList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
-				selectedItemSupply = cb.getSelectedIndex();
+				JComboBox<String> cb1 = (JComboBox<String>) evt.getSource();
+				selectedItemSupply = cb1.getSelectedIndex();
 			}
 		});
 		itemSupplyListLabel = new JLabel();
@@ -103,8 +103,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		itemList = new JComboBox<String>(new String[0]);
 		itemList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
-				selectedItem = cb.getSelectedIndex();
+				JComboBox<String> cb2 = (JComboBox<String>) evt.getSource();
+				selectedItem = cb2.getSelectedIndex();
 			}
 		});
 		itemListLabel = new JLabel();
@@ -114,8 +114,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		itemList2 = new JComboBox<String>(new String[0]);
 		itemList2.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb2 = (JComboBox<String>) evt.getSource();
-				selectedItem2 = cb2.getSelectedIndex();
+				JComboBox<String> cb3 = (JComboBox<String>) evt.getSource();
+				selectedItem2 = cb3.getSelectedIndex();
 			}
 		});
 		itemListLabel2 = new JLabel();
@@ -123,8 +123,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		orderItemList = new JComboBox<String>(new String[0]);
 		orderItemList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
-				selectedOrderItem = cb.getSelectedIndex();
+				JComboBox<String> cb4 = (JComboBox<String>) evt.getSource();
+				selectedOrderItem = cb4.getSelectedIndex();
 			}
 		});
 		orderItemListLabel = new JLabel();
@@ -331,16 +331,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 			supplyList.setSelectedIndex(selectedSupply);
 			
 			//Item supply list 
-			itemSupply = new HashMap<Integer, Supply>();
-			itemSupplyList.removeAllItems();
+			supply = new HashMap<Integer, Supply>();
 			if(itemList.getSelectedItem() == null){
 				itemSupplyList = null;
 			}
 			else{
-				Item it = (Item) itemList.getSelectedItem();
+				if(itemSupplyList != null){
+					itemSupplyList.removeAllItems();
+				}
+				Item it = item.get(selectedItem);
 				for(int p = 0; p < it.getSupply().size(); p++){
 					Supply s = it.getSupply(p);
-					itemSupply.put(p, s);
+					supply.put(p, s);
 					itemSupplyList.addItem("" + s.getName() + " (" + s.getQuantity() + ")"+ "BB: " + bestBeforeToString(s.getBestBefore()));
 					selectedItemSupply = -1;
 					itemSupplyList.setSelectedIndex(selectedItemSupply);
@@ -356,7 +358,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			while(iIt.hasNext()){
 				Item itt = iIt.next();
 				item.put(j, itt);
-				supplyList.addItem("" + itt.getName());
+				itemList.addItem("" + itt.getName());
 				j++;
 			}
 			selectedItem = -1;
@@ -370,7 +372,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			while(itIt.hasNext()){
 				Item itt = itIt.next();
 				item.put(k, itt);
-				supplyList.addItem("" + itt.getName());
+				itemList2.addItem("" + itt.getName());
 				k++;
 			}
 			selectedItem2 = -1;
@@ -378,12 +380,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 			
 			//Order Item List 
 			orderItem = new HashMap<Integer, Item>();
-			orderItemList.removeAllItems();
 			//Iterator<Supply> suIt = fm.getSupplies().iterator();
 			int orderNumber = fm.numberOfOrders();
 			if(orderNumber > 0){
+				orderItemList.removeAllItems();
 				Order order = fm.getOrder(orderNumber);
 				for(int p = 0; p < order.getItem().size(); p++){
+					System.out.println("INDEX is " + p);
 					Item s = order.getItem(p);
 					orderItem.put(p, s);
 					orderItemList.addItem("" + s.getName());
