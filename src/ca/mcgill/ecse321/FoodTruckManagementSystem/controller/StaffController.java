@@ -161,6 +161,7 @@ public class StaffController {
 			 out.newLine();
 			 String header = String.format("%-22s%-22s%-22s\n", "Date", "Start Time", "End Time");
 			 out.write(header);
+			 out.newLine();
 			 Calendar start = Calendar.getInstance();
 			 start.setTime(startDate);
 			 Calendar end = Calendar.getInstance();
@@ -168,26 +169,25 @@ public class StaffController {
 			 /*Search through all dates specified and if a shift on a date has the specified staff member, then
 			  * the shift start time and end time should be specified.
 			 */
-			System.out.println("START " + start.toString());
-			System.out.println("END " + end.toString());
 			 for (java.util.Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
 				 for(int i = 0; i < fm.getShifts().size(); i++){
-					 System.out.println("First" + String.valueOf(fm.getShift(i).getShiftDate() == date));
-					 System.out.println("Second" + String.valueOf(fm.getShift(i).removeStaff(staff)));
-					 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					 SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 					 String formattedDate = formatter.format(date);
 					 Date sqlDate = fm.getShift(i).getShiftDate();
 					 java.util.Date utilDate = new Date(sqlDate.getTime());
 					 String formattedShiftDate = formatter.format(utilDate);
+					 System.out.println("First" + String.valueOf(formattedShiftDate.equals(formattedDate)));
+					 System.out.println("Second" + String.valueOf(fm.getShift(i).containsStaff(staff)));
 					 System.out.println("SHIFT:" + formattedDate);
 					 System.out.println("Date:" + formattedShiftDate);
 					 System.out.println();
 					 //Removing shift from staff is a problem; find another way to determine if staff member has a shift assigned.
-					 if (formattedShiftDate.equals(formattedDate) && fm.getShift(i).removeStaff(staff)){
-						 String shift = String.format("%-22s%-22s%-22s\n", date.toString(), fm.getShift(i).getStartTime().toString(), fm.getShift(i).getStartTime().toString());
+					 if (formattedShiftDate.equals(formattedDate) && fm.getShift(i).containsStaff(staff)){
+						 String shift = String.format("%-22s%-22s%-22s\n", formattedDate, fm.getShift(i).getStartTime().toString(), fm.getShift(i).getEndTime().toString());
 						 out.write(shift);
-						 out.newLine();
-						 out.newLine(); 
+						 //out.write("");
+						 //out.newLine();
+						 //out.newLine(); 
 						 System.out.println("IF ENTRY");
 					 }
 				 }
