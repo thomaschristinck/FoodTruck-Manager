@@ -83,7 +83,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				JComboBox<String> cb = (JComboBox<String>) evt.getSource();
 				selectedSupply = cb.getSelectedIndex();
-				System.out.println("SUPPLY LIST INDEX:" + cb.getSelectedIndex());
 			}
 		});
 		supplyListLabel = new JLabel();
@@ -94,7 +93,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				JComboBox<String> cb2 = (JComboBox<String>) evt.getSource();
 				selectedItem = cb2.getSelectedIndex();
-				System.out.println("ITEM LIST INDEX:" + cb2.getSelectedIndex());
 			}
 		});
 		itemListLabel = new JLabel();
@@ -204,6 +202,12 @@ private static final long serialVersionUID = -8062635784771606869L;
 		makeOrderButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt){
 				makeOrderButtonActionPerformed(evt);
+			}
+		});
+	
+		viewMenuButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt){
+				viewMenuButtonActionPerformed(evt);
 			}
 		});
 	
@@ -348,8 +352,9 @@ private static final long serialVersionUID = -8062635784771606869L;
 			//Iterator<Supply> suIt = fm.getSupplies().iterator();
 			int orderNumber = fm.numberOfOrders();
 			if(orderNumber > 0){
-				orderItemList.removeAllItems();
-				Order order = fm.getOrder(orderNumber);
+				Order order = fm.getOrder(orderNumber - 1);
+				if(order.hasItem())
+					orderItemList.removeAllItems();
 				for(int p = 0; p < order.getItem().size(); p++){
 					Item s = order.getItem(p);
 					orderItem.put(p, s);
@@ -461,6 +466,16 @@ private static final long serialVersionUID = -8062635784771606869L;
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
+		//Update visuals
+		refreshData();
+	}
+	
+	private void viewMenuButtonActionPerformed(java.awt.event.ActionEvent evt){
+		//Call the controller
+		MenuController mc = new MenuController();
+		error = null;
+		mc.viewMenu();
+		
 		//Update visuals
 		refreshData();
 	}

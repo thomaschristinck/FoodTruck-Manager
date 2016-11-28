@@ -1,5 +1,9 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.*;
 import java.sql.Time;
@@ -22,9 +26,7 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStrea
 public class MenuController {
 	public MenuController(){
 	}
-	
 	int orderNumbers;
-	
 	public void addSupply(Supply supply, Item item) throws InvalidInputException{
 		String error = "";
 		if (supply == null)
@@ -103,13 +105,14 @@ public class MenuController {
 			throw new InvalidInputException(error);
 		
 		FoodTruckManager fm = FoodTruckManager.getInstance();
-		if(fm.getOrders().size() == 0){
+		if(fm.numberOfOrders() == 0){
 			Calendar c = Calendar.getInstance();
 			java.util.Date utilDate = c.getTime();
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			Time orderTime = new Time(sqlDate.getTime());
 			Order order = new Order(orderNumbers, sqlDate, orderTime);
 			order.addItem(item);
+			fm.addOrder(order);
 		}
 		else{
 			if (fm.getOrder(orderNumbers) == null){
@@ -119,10 +122,10 @@ public class MenuController {
 				Time orderTime = new Time(sqlDate.getTime());
 				Order order = new Order(orderNumbers, sqlDate, orderTime);
 				order.addItem(item);
+				fm.addOrder(order);
 			}
 			else{
 			fm.getOrder(orderNumbers).addItem(item);
-			System.out.print("YES" + " (mc)");
 			}
 		}
 		PersistenceXStream.saveToXMLwithXStream(fm);
@@ -145,16 +148,50 @@ public class MenuController {
 	public void makeOrder() throws InvalidInputException{
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		String error = "";
-		if (fm.getOrder(orderNumbers) == null)
-			error = error + " Cannot make an order with no items!";
-		if (!fm.getOrder(orderNumbers).hasItem())
-			error = error + " Cannot make an order with no items!";
+		if (fm.numberOfOrders() == 0)
+			error = error + " 1Cannot make an order with no items!";
+		if (fm.numberOfOrders() != 0){
+			if(!fm.getOrder(orderNumbers).hasItem())
+				error = error + " 2Cannot make an order with no items!";
+		}
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
 		
-		
+		System.out.println("ORDERNUMBERS: " + orderNumbers);
 		orderNumbers++;
 		PersistenceXStream.saveToXMLwithXStream(fm);
+	}
+	
+	public void viewMenu(){
+		 try {
+			 FoodTruckManager fm = FoodTruckManager.getInstance();
+			 File file = new File("filename.txt");
+
+			 //If file doesn't exist, then create it
+			 if (!file.exists()) {
+				 file.createNewFile();
+			 }
+
+			 FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			 BufferedWriter out = new BufferedWriter(fw);
+			 out.write("\t\t\t\t\t" + "Menu");
+			 out.newLine();
+			 out.newLine();
+			 for (int i = 0; i < fm.getItems().size(); i++) {
+				 int itemNumber = i + 1;
+				 out.write(itemNumber + ". " + fm.getItem(i).getName());
+				 out.newLine();
+				 out.newLine();
+				 out.write(fm.getItem(i).getDescription());
+				 out.newLine(); 
+				 out.newLine();
+				 out.newLine();
+			 }
+			 out.close();
+			 java.awt.Desktop.getDesktop().edit(file);
+		 } catch (IOException e) {
+			 //fail()?
+		 }
 	}
 }
