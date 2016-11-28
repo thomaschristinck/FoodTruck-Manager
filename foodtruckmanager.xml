@@ -2,80 +2,131 @@
   <supplies id="2">
     <supply id="3">
       <name>Cinnamon Sticks</name>
-      <quantity>37</quantity>
+      <quantity>40</quantity>
       <bestBefore id="4">2017-01-31</bestBefore>
     </supply>
     <supply id="5">
-      <name>Carrots</name>
-      <quantity>23</quantity>
-      <bestBefore id="6">2016-11-08</bestBefore>
-    </supply>
-    <supply id="7">
-      <name>Carrots (LG)</name>
-      <quantity>60</quantity>
-      <bestBefore id="8">2016-11-15</bestBefore>
-    </supply>
-    <supply id="9">
       <name>Flour (20 lb bags)</name>
       <quantity>10</quantity>
-      <bestBefore id="10">2019-11-28</bestBefore>
+      <bestBefore id="6">2019-11-28</bestBefore>
+    </supply>
+    <supply id="7">
+      <name>Cheddar Cheese (1 kg Block)</name>
+      <quantity>10</quantity>
+      <bestBefore id="8">2016-12-03</bestBefore>
     </supply>
   </supplies>
-  <items id="11"/>
-  <orders id="12"/>
-  <staffs id="13">
-    <staff id="14">
+  <items id="9">
+    <item id="10">
+      <name>Grilled Cheese</name>
+      <description>Made with whole wheat bread</description>
+      <supply id="11">
+        <supply reference="7"/>
+      </supply>
+    </item>
+    <item id="12">
+      <name>Macaroni and Cheese</name>
+      <description>Our secret recipe. Made with aged cheddar and bacon.</description>
+      <supply id="13">
+        <supply reference="7"/>
+      </supply>
+    </item>
+    <item id="14">
+      <name>Sloppy Joe&apos;s</name>
+      <description>Our Sloppy Joe&apos;s are made with 100% fresh Canadian Angus beef. Served with fries. A must try! - $8</description>
+      <supply id="15"/>
+    </item>
+    <item id="16">
+      <name>Raviolli</name>
+      <description>The dankest raviolli ever. Made with parmaesan straight from the Italian alps, and pasta stuffed with grade A beef - $10</description>
+      <supply id="17"/>
+    </item>
+    <item id="18">
+      <name>Wood Fire Pizza</name>
+      <description>Made in a real wood furnace, our pizza dough is made using a recipe handed down for many generations. Toppings of choice. Comes in 10 or 16&quot; - $10 or $15</description>
+      <supply id="19"/>
+    </item>
+  </items>
+  <orders id="20">
+    <order id="21">
+      <orderNumber>0</orderNumber>
+      <orderDate id="22">2016-11-27</orderDate>
+      <orderTime id="23">17:33:14</orderTime>
+      <item id="24">
+        <item reference="12"/>
+        <item id="25">
+          <name>Wood Fire Pizza</name>
+          <description>An old classic</description>
+          <supply id="26">
+            <supply reference="5"/>
+            <supply reference="7"/>
+          </supply>
+        </item>
+        <item reference="10"/>
+      </item>
+    </order>
+  </orders>
+  <staffs id="27">
+    <staff id="28">
       <name>Jacqueline Taylor</name>
       <role>Cook</role>
     </staff>
-    <staff id="15">
+    <staff id="29">
       <name>Tom Bisset</name>
       <role>Cash</role>
     </staff>
-    <staff id="16">
+    <staff id="30">
       <name>Huck Sasche</name>
       <role>Chef</role>
     </staff>
-    <staff id="17">
+    <staff id="31">
       <name>Alex Torske</name>
       <role>Management</role>
     </staff>
-    <staff id="18">
+    <staff id="32">
       <name>Carlo Mole</name>
       <role>Cook</role>
     </staff>
   </staffs>
-  <shifts id="19">
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="20">
-      <startTime id="21">18:00:00</startTime>
-      <endTime id="22">22:00:00</endTime>
-      <shiftDate id="23">2016-10-27</shiftDate>
-      <staff id="24">
-        <staff reference="14"/>
-        <staff id="25">
+  <shifts id="33">
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="34">
+      <startTime id="35">18:00:00</startTime>
+      <endTime id="36">22:00:00</endTime>
+      <shiftDate id="37">2016-10-27</shiftDate>
+      <staff id="38">
+        <staff reference="28"/>
+        <staff id="39">
           <name>Thomas Christinck</name>
           <role>Cook</role>
         </staff>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="26">
-      <startTime id="27">10:00:00</startTime>
-      <endTime id="28">16:00:00</endTime>
-      <shiftDate id="29">2016-10-28</shiftDate>
-      <staff id="30">
-        <staff reference="15"/>
-        <staff reference="16"/>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="40">
+      <startTime id="41">10:00:00</startTime>
+      <endTime id="42">16:00:00</endTime>
+      <shiftDate id="43">2016-10-28</shiftDate>
+      <staff id="44">
+        <staff reference="29"/>
+        <staff reference="30"/>
+      </staff>
+    </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="45">
+      <startTime id="46">20:00:00</startTime>
+      <endTime id="47">21:00:00</endTime>
+      <shiftDate id="48">2016-11-28</shiftDate>
+      <staff id="49">
+        <staff reference="28"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
   </shifts>
-  <equipment id="31">
-    <equipment id="32">
-      <name>Butter</name>
-      <quantity>5</quantity>
+  <equipment id="50">
+    <equipment id="51">
+      <name>Spoons</name>
+      <quantity>110</quantity>
     </equipment>
-    <equipment id="33">
-      <name>Forks</name>
-      <quantity>90</quantity>
+    <equipment id="52">
+      <name>Large Forks</name>
+      <quantity>100</quantity>
     </equipment>
   </equipment>
 </manager>

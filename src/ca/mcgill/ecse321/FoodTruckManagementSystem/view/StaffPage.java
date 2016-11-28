@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Panel;
 import java.sql.Time;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -16,8 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
@@ -485,8 +481,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		error = null;
 		try {
-			//Edit later
-			sc.removeShiftFromStaff(staff.get(selectedStaff), shift.get(selectedShift));
+			sc.viewSchedule(staff.get(selectedStaff), (java.sql.Date) startDatePicker.getModel().getValue(), (java.sql.Date) endDatePicker.getModel().getValue());
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
