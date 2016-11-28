@@ -96,7 +96,7 @@ public class MenuController {
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 
-	public void addItemToOrder(Item item) throws InvalidInputException{
+	public void makeOrder(Item item) throws InvalidInputException{
 		String error = "";
 		if (item == null)
 			error = error + " Must select item to add!";
@@ -104,64 +104,35 @@ public class MenuController {
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
 		
+		
 		FoodTruckManager fm = FoodTruckManager.getInstance();
-		if(fm.numberOfOrders() == 0){
-			Calendar c = Calendar.getInstance();
-			java.util.Date utilDate = c.getTime();
-			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			Time orderTime = new Time(sqlDate.getTime());
-			Order order = new Order(orderNumbers, sqlDate, orderTime);
-			order.addItem(item);
-			fm.addOrder(order);
-		}
-		else{
-			if (fm.getOrder(orderNumbers) == null){
-				Calendar c = Calendar.getInstance();
-				java.util.Date utilDate = c.getTime();
-				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-				Time orderTime = new Time(sqlDate.getTime());
-				Order order = new Order(orderNumbers, sqlDate, orderTime);
-				order.addItem(item);
-				fm.addOrder(order);
-			}
-			else{
-			fm.getOrder(orderNumbers).addItem(item);
-			}
-		}
+		int orderNumber = fm.getOrders().size();
+		Calendar c = Calendar.getInstance();
+		java.util.Date utilDate = c.getTime();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		Time orderTime = new Time(sqlDate.getTime());
+		Order order = new Order(orderNumber, sqlDate, orderTime);
+		order.addItem(item);
+		fm.addOrder(order);
+	
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
 
-	public void removeItemFromOrder(Item item) throws InvalidInputException{
+	public void removeOrder() throws InvalidInputException{
+		FoodTruckManager fm = FoodTruckManager.getInstance();
 		String error = "";
-		if (item == null)
-			error = error + " Must select item to remove!";
+		if (fm.getOrders().size() == 0)
+			error = error + " No orders have been made!";
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
+		int orderNumber = fm.getOrders().size() - 1;
+		fm.removeOrder(fm.getOrder(orderNumber));
 		
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		fm.getOrder(orderNumbers).removeItem(item);
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
-	public void makeOrder() throws InvalidInputException{
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		String error = "";
-		if (fm.numberOfOrders() == 0)
-			error = error + " 1Cannot make an order with no items!";
-		if (fm.numberOfOrders() != 0){
-			if(!fm.getOrder(orderNumbers).hasItem())
-				error = error + " 2Cannot make an order with no items!";
-		}
-		error = error.trim();
-		if(error.length() > 0)
-			throw new InvalidInputException(error);
-		
-		System.out.println("ORDERNUMBERS: " + orderNumbers);
-		orderNumbers++;
-		PersistenceXStream.saveToXMLwithXStream(fm);
-	}
 	
 	public void viewMenu() throws IOException{
 		 try {

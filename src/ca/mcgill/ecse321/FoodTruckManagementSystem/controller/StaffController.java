@@ -176,26 +176,17 @@ public class StaffController {
 					 Date sqlDate = fm.getShift(i).getShiftDate();
 					 java.util.Date utilDate = new Date(sqlDate.getTime());
 					 String formattedShiftDate = formatter.format(utilDate);
-					 System.out.println("First" + String.valueOf(formattedShiftDate.equals(formattedDate)));
-					 System.out.println("Second" + String.valueOf(fm.getShift(i).containsStaff(staff)));
-					 System.out.println("SHIFT:" + formattedDate);
-					 System.out.println("Date:" + formattedShiftDate);
-					 System.out.println();
 					 //Removing shift from staff is a problem; find another way to determine if staff member has a shift assigned.
 					 if (formattedShiftDate.equals(formattedDate) && fm.getShift(i).containsStaff(staff)){
 						 String shift = String.format("%-22s%-22s%-22s\n", formattedDate, fm.getShift(i).getStartTime().toString(), fm.getShift(i).getEndTime().toString());
 						 out.write(shift);
-						 //out.write("");
-						 //out.newLine();
-						 //out.newLine(); 
-						 System.out.println("IF ENTRY");
 					 }
 				 }
 			 }
 			 out.close();
 			 java.awt.Desktop.getDesktop().edit(file);
 		 } catch (IOException e) {
-			 //fail()?
+			 throw new InvalidInputException("ERROR CREATING FILE");
 		 }
 	}
 	
