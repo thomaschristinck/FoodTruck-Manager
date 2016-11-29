@@ -181,7 +181,8 @@ public class MenuController {
 			 out.write("\t\t\t\t\t" + "Statistics");
 			 out.newLine();
 			 out.newLine();
-			 out.write("Item List");
+			 out.write("Item List (With Ingredients Listed)");
+			 out.newLine();
 			 out.newLine();
 			 for (int i = 0; i < fm.getItems().size(); i++) {
 				 int itemNumber = i + 1;
@@ -221,8 +222,8 @@ public class MenuController {
 			 out.write(header);
 			 out.newLine();
 			 Arrays.sort(orderNumber);
-			 for(int j = 0; j < orderNumber.length; j++){
-				 String ranking = String.format("%-28s%-28s\n", "" + Integer.toString(j) + ". " + fm.getItem(j).getName(), "" + Integer.toString(orderNumber[j]));
+			 for(int j = orderNumber.length - 1; j >= 0; j--){
+				 String ranking = String.format("%-28s%-28s\n", "" + Integer.toString(orderNumber.length - j) + ". " + fm.getItem(j).getName(), "" + Integer.toString(orderNumber[j]));
 				 	out.write(ranking);
 				 	out.newLine();
 				 	out.newLine();

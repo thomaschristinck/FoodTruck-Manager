@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -37,6 +39,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 	
 	//UI elements
 	private JLabel errorMessage;
+	private JButton returnButton;
 	private JTextField staffNameTextField;
 	private JTextField staffRoleTextField;
 	private JLabel staffLabel;
@@ -85,6 +88,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
 		
+		//Elements for return
+		returnButton = new JButton();
+		returnButton.setForeground(Color.GRAY);
+		
 		//Elements for staff list
 		staffList = new JComboBox<String>(new String[0]);
 		staffList.addActionListener(new java.awt.event.ActionListener(){
@@ -115,7 +122,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		});
 		shiftLabel = new JLabel();
 		
-		//elements for staff
+		
+		//Elements for staff
 		staffNameTextField = new JTextField();
 		staffNameLabel = new JLabel();
 		staffNameTextField = new JTextField();
@@ -127,7 +135,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		addStaffButton = new JButton();
 		removeStaffButton = new JButton();
 		
-		//elements for shift
+		//Elements for shift
 		SqlDateModel model = new SqlDateModel();
 		Properties p = new Properties();
 		p.put("text.today", "Today");
@@ -174,6 +182,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//global settings and listeners
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Staff Manager");
+		returnButton.setText("Main Menu");
 		staffLabel.setText("Select Staff:");
 		removeStaffButton.setText("Remove Staff");
 		removeStaffButton.addActionListener(new java.awt.event.ActionListener(){
@@ -229,6 +238,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 				generateSchedButtonActionPerformed(evt);
 			}
 		});
+		
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt){
+				returnButtonActionPerformed(evt);
+			}
+
+			private void returnButtonActionPerformed(ActionEvent evt) {
+				 StaffPage.this.dispose();
+			     new MainMenu().setVisible(true);
+				
+			}
+		});
 	
 		//layout
 		GroupLayout layout = new GroupLayout(getContentPane());
@@ -271,7 +292,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(shiftDatePicker)
 								.addComponent(startTimeSpinner)
 								.addComponent(endTimeSpinner)
-								.addComponent(endDatePicker)))
+								.addComponent(endDatePicker)
+								.addComponent(returnButton)))
 				);
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
@@ -318,7 +340,9 @@ private static final long serialVersionUID = -8062635784771606869L;
 					.addComponent(startDatePicker)
 					.addComponent(endDateLabel)
 					.addComponent(endDatePicker))
-				.addComponent(generateSchedButton)
+				.addGroup(layout.createParallelGroup()
+						.addComponent(generateSchedButton)
+						.addComponent(returnButton))
 				);
 		pack();
 	}
