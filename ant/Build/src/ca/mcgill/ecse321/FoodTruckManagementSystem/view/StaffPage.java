@@ -481,8 +481,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		error = null;
 		try {
-			//Edit later
-			sc.removeShiftFromStaff(staff.get(selectedStaff), shift.get(selectedShift));
+			sc.viewSchedule(staff.get(selectedStaff), (java.sql.Date) startDatePicker.getModel().getValue(), (java.sql.Date) endDatePicker.getModel().getValue());
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
