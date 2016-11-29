@@ -1,9 +1,9 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
 import java.awt.Color;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -19,12 +19,14 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.InvalidInputExcept
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.MenuController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
-import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Order;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 
 
 public class MenuPage extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
+	//UI elements for Items
+	private JButton returnButton;
+
 	//UI elements for Items
 	private JLabel errorMessage;
 	private JLabel itemTitle;
@@ -43,13 +45,11 @@ private static final long serialVersionUID = -8062635784771606869L;
 	
 	//UI elements for Orders
 	private JLabel orderTitle;
-	private JButton addItemToOrderButton;
-	private JButton removeItemFromOrderButton;
+	private JButton removeOrderButton;
 	private JButton makeOrderButton;
 	private JComboBox<String> itemList2;
 	private JLabel itemListLabel2;
-	private JComboBox<String> orderItemList;
-	private JLabel orderItemListLabel;
+
 	
 	//Data elements for both items and orders
 	private String error = null;
@@ -58,8 +58,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private Integer selectedItem = -1;
 	private Integer selectedItem2 = -1;
 	private HashMap<Integer, Item> item;
-	private Integer selectedOrderItem = -1;
-	private HashMap<Integer, Item> orderItem;
 	
 	private JButton viewStatsButton;
 	private JButton viewMenuButton;
@@ -74,9 +72,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 	/* This method is called from within the constructor to initialize the form*/
 	private void initComponents(){
-		//elements for error message
+		//Elements for Error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
+		
+		//Elements for return
+		returnButton = new JButton();
+		returnButton.setForeground(Color.GRAY);
 		
 		//Elements for item lists
 		supplyList = new JComboBox<String>(new String[0]);
@@ -109,15 +111,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 		});
 		itemListLabel2 = new JLabel();
 		
-		orderItemList = new JComboBox<String>(new String[0]);
-		orderItemList.addActionListener(new java.awt.event.ActionListener(){
-			public void actionPerformed(java.awt.event.ActionEvent evt){
-				JComboBox<String> cb4 = (JComboBox<String>) evt.getSource();
-				selectedOrderItem = cb4.getSelectedIndex();
-			}
-		});
-		orderItemListLabel = new JLabel();
-		
 		
 		//Elements for adding/removing supplies to item, adding/removing items
 		itemTitle = new JLabel();
@@ -132,8 +125,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		//Elements for adding/removing items to/from orders, making orders
 		orderTitle = new JLabel();
-		addItemToOrderButton = new JButton();
-		removeItemFromOrderButton = new JButton();
+		removeOrderButton = new JButton();
 		makeOrderButton = new JButton();
 	
 		//Elements for view
@@ -142,6 +134,9 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		//Global settings and listeners
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		returnButton.setText("Main Menu");
+		
 		setTitle("Menu Manager");
 		itemTitle.setText("Items");
 		itemNameLabel.setText("Item Name:");
@@ -155,9 +150,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		orderTitle.setText("Orders");
 		itemListLabel2.setText("Select Item:");
-		addItemToOrderButton.setText("Add to Order");
-		orderItemListLabel.setText("Select Item:");
-		removeItemFromOrderButton.setText("Remove from Order");
+		removeOrderButton.setText("Remove from Order");
 		makeOrderButton.setText("Make Order");
 		viewStatsButton.setText("View Statistics");
 		viewMenuButton.setText("View Menu");
@@ -188,15 +181,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 			}
 		});
 		
-		addItemToOrderButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt){
-				addItemToOrderButtonActionPerformed(evt);
-			}
-		});
 		
-		removeItemFromOrderButton.addActionListener(new java.awt.event.ActionListener() {
+		removeOrderButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt){
-				removeItemFromOrderButtonActionPerformed(evt);
+				removeOrderButtonActionPerformed(evt);
 			}
 		});
 		
@@ -211,6 +199,26 @@ private static final long serialVersionUID = -8062635784771606869L;
 				viewMenuButtonActionPerformed(evt);
 			}
 		});
+		
+		viewStatsButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt){
+				viewStatsButtonActionPerformed(evt);
+			}
+		});
+		
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt){
+				returnButtonActionPerformed(evt);
+			}
+
+			private void returnButtonActionPerformed(ActionEvent evt) {
+				 MenuPage.this.dispose();
+			     new MainMenu().setVisible(true);
+				
+			}
+		});
+	
+	
 	
 	
 	
@@ -243,20 +251,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addGroup(layout.createParallelGroup()
 								.addComponent(orderTitle)
 								.addComponent(itemListLabel2)
-								.addComponent(addItemToOrderButton)
-								.addComponent(orderItemListLabel)
-								.addComponent(removeItemFromOrderButton)
+								.addComponent(removeOrderButton)
 								.addComponent(makeOrderButton))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(itemList2)
-								.addComponent(orderItemList)))
+								.addComponent(returnButton)))
 				);
 		
 		/*layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
 				{addToItemButton, removeFromItemButton, addItemButton, removeItemButton});
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
-				{addItemToOrderButton, removeItemFromOrderButton, makeOrderButton});*/
+				{addItemToOrderButton, removeOrderButton, makeOrderButton});*/
 		
 		
 		layout.setVerticalGroup(
@@ -273,19 +279,16 @@ private static final long serialVersionUID = -8062635784771606869L;
 				.addGroup(layout.createParallelGroup()
 						.addComponent(descriptionLabel)
 						.addComponent(descriptionTextField)
-						.addComponent(addItemToOrderButton))
+						.addComponent(makeOrderButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(addItemButton)
-						.addComponent(orderItemListLabel)
-						.addComponent(orderItemList))
+						.addComponent(removeOrderButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(itemListLabel)
-						.addComponent(itemList)
-						.addComponent(removeItemFromOrderButton))
+						.addComponent(itemList))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(supplyListLabel)
-						.addComponent(supplyList)
-						.addComponent(makeOrderButton))
+						.addComponent(supplyList))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(addToItemButton))
 				.addGroup(layout.createParallelGroup()
@@ -294,7 +297,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(removeItemButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(viewMenuButton)
-						.addComponent(viewStatsButton)));
+						.addComponent(viewStatsButton)
+						.addComponent(returnButton)));
 		pack();
 	}
 	
@@ -313,7 +317,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			while(sIt.hasNext()){
 				Supply s = sIt.next();
 				supply.put(index,  s);
-				supplyList.addItem(s.getName() + " (" + s.getQuantity() + ") " + "BB: " + bestBeforeToString(s.getBestBefore()));
+				supplyList.addItem(s.getName());
 				index++;
 			}
 			selectedSupply = -1;
@@ -347,26 +351,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 			}
 			selectedItem2 = -1;
 			itemList2.setSelectedIndex(selectedItem2);
-			
-			//Order Item List 
-			orderItem = new HashMap<Integer, Item>();
-			//Iterator<Supply> suIt = fm.getSupplies().iterator();
-			int orderNumber = fm.numberOfOrders();
-			if(orderNumber > 0){
-				Order order = fm.getOrder(orderNumber - 1);
-				if(order.hasItem())
-					orderItemList.removeAllItems();
-				for(int p = 0; p < order.getItem().size(); p++){
-					Item s = order.getItem(p);
-					orderItem.put(p, s);
-					orderItemList.addItem("" + s.getName());
-				}
-			selectedOrderItem = -1;
-			orderItemList.setSelectedIndex(selectedOrderItem);
-			}
-			else{
-				orderItemList = null;
-			}
 			
 		//Item text fields empty
 		itemNameTextField.setText("");
@@ -432,25 +416,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 		refreshData();
 	}
 
-	private void addItemToOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
-		//Call the controller
-		MenuController mc = new MenuController();
-		error = null;
-		try {
-			mc.addItemToOrder(item.get(selectedItem2));
-		} catch (InvalidInputException e) {
-			error = e.getMessage();
-		} 
-		//Update visuals
-		refreshData();
-	}
 	
-	private void removeItemFromOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
+	private void removeOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
 		//Call the controller
 		MenuController mc = new MenuController();
 		error = null;
 		try {
-			mc.removeItemFromOrder(orderItem.get(selectedOrderItem));
+			mc.removeOrder();
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
@@ -463,7 +435,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		MenuController mc = new MenuController();
 		error = null;
 		try {
-			mc.makeOrder();
+			mc.makeOrder(item.get(selectedItem2));
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
@@ -484,13 +456,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 		refreshData();
 	}
 	
-	public String bestBeforeToString(Date bestBefore){
-		String date = bestBefore.toString();
-		String[] yearMonthDay = date.split("-");
-		date = yearMonthDay[2] + "/" + yearMonthDay[1] + "/" + yearMonthDay[0];
-		return date;
+	private void viewStatsButtonActionPerformed(java.awt.event.ActionEvent evt){
+		//Call the controller
+		MenuController mc = new MenuController();
+		error = null;
+		try {
+			mc.viewStatistics();
+		} catch (IOException e) {
+			error = e.getMessage();
+		} 
+		//Update visuals
+		refreshData();
 	}
-
 }
 
 

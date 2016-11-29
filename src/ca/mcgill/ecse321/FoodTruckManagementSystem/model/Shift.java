@@ -121,7 +121,14 @@ public class Shift
     wasAdded = true;
     return wasAdded;
   }
-
+  
+  public boolean containsStaff(Staff aStaff){
+	  boolean hasStaff = false;
+	  if (staff.contains(aStaff)){
+		 hasStaff = true;
+	  }
+	  return hasStaff;
+  }
   public boolean removeStaff(Staff aStaff)
   {
     boolean wasRemoved = false;

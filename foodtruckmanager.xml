@@ -7,7 +7,7 @@
     </supply>
     <supply id="5">
       <name>Flour (20 lb bags)</name>
-      <quantity>10</quantity>
+      <quantity>31</quantity>
       <bestBefore id="6">2019-11-28</bestBefore>
     </supply>
     <supply id="7">
@@ -18,115 +18,161 @@
   </supplies>
   <items id="9">
     <item id="10">
-      <name>Grilled Cheese</name>
-      <description>Made with whole wheat bread</description>
+      <name>Macaroni and Cheese</name>
+      <description>Our secret recipe. Made with aged cheddar and bacon.</description>
       <supply id="11">
         <supply reference="7"/>
       </supply>
     </item>
     <item id="12">
-      <name>Macaroni and Cheese</name>
-      <description>Our secret recipe. Made with aged cheddar and bacon.</description>
-      <supply id="13">
-        <supply reference="7"/>
-      </supply>
-    </item>
-    <item id="14">
       <name>Sloppy Joe&apos;s</name>
       <description>Our Sloppy Joe&apos;s are made with 100% fresh Canadian Angus beef. Served with fries. A must try! - $8</description>
-      <supply id="15"/>
+      <supply id="13"/>
     </item>
-    <item id="16">
+    <item id="14">
       <name>Raviolli</name>
       <description>The dankest raviolli ever. Made with parmaesan straight from the Italian alps, and pasta stuffed with grade A beef - $10</description>
+      <supply id="15">
+        <supply reference="5"/>
+      </supply>
+    </item>
+    <item id="16">
+      <name>Wood Fire Pizza</name>
+      <description>Made in a real wood furnace, our pizza dough is made using a recipe handed down for many generations. Toppings of choice. Comes in 10 or 16&quot; - $10 or $15</description>
       <supply id="17"/>
     </item>
     <item id="18">
-      <name>Wood Fire Pizza</name>
-      <description>Made in a real wood furnace, our pizza dough is made using a recipe handed down for many generations. Toppings of choice. Comes in 10 or 16&quot; - $10 or $15</description>
+      <name>Grilled Cheese</name>
+      <description>Our grilled cheese is made with a blend of old cheddar and Jalepeno Monteray Jack. Made with your choice of whole grain or french bread. Served with sweet potato fries - $7</description>
       <supply id="19"/>
     </item>
+    <item id="20">
+      <name>Hot Dog</name>
+      <description>Foot long hotdog, made with 100% Canadian beef, served with chili and fries - $6</description>
+      <supply id="21"/>
+    </item>
   </items>
-  <orders id="20">
-    <order id="21">
+  <orders id="22">
+    <order id="23">
       <orderNumber>0</orderNumber>
-      <orderDate id="22">2016-11-27</orderDate>
-      <orderTime id="23">17:33:14</orderTime>
-      <item id="24">
+      <orderDate id="24">2016-11-28</orderDate>
+      <orderTime id="25">20:36:49</orderTime>
+      <item id="26">
         <item reference="12"/>
-        <item id="25">
-          <name>Wood Fire Pizza</name>
-          <description>An old classic</description>
-          <supply id="26">
-            <supply reference="5"/>
-            <supply reference="7"/>
-          </supply>
-        </item>
-        <item reference="10"/>
+      </item>
+    </order>
+    <order id="27">
+      <orderNumber>1</orderNumber>
+      <orderDate id="28">2016-11-28</orderDate>
+      <orderTime id="29">20:36:58</orderTime>
+      <item id="30">
+        <item reference="18"/>
+      </item>
+    </order>
+    <order id="31">
+      <orderNumber>2</orderNumber>
+      <orderDate id="32">2016-11-28</orderDate>
+      <orderTime id="33">20:37:06</orderTime>
+      <item id="34">
+        <item reference="14"/>
+      </item>
+    </order>
+    <order id="35">
+      <orderNumber>3</orderNumber>
+      <orderDate id="36">2016-11-28</orderDate>
+      <orderTime id="37">20:37:11</orderTime>
+      <item id="38">
+        <item reference="16"/>
+      </item>
+    </order>
+    <order id="39">
+      <orderNumber>4</orderNumber>
+      <orderDate id="40">2016-11-28</orderDate>
+      <orderTime id="41">20:37:16</orderTime>
+      <item id="42">
+        <item reference="16"/>
+      </item>
+    </order>
+    <order id="43">
+      <orderNumber>5</orderNumber>
+      <orderDate id="44">2016-11-28</orderDate>
+      <orderTime id="45">20:37:19</orderTime>
+      <item id="46">
+        <item reference="16"/>
+      </item>
+    </order>
+    <order id="47">
+      <orderNumber>6</orderNumber>
+      <orderDate id="48">2016-11-28</orderDate>
+      <orderTime id="49">20:46:03</orderTime>
+      <item id="50">
+        <item reference="16"/>
       </item>
     </order>
   </orders>
-  <staffs id="27">
-    <staff id="28">
+  <staffs id="51">
+    <staff id="52">
       <name>Jacqueline Taylor</name>
       <role>Cook</role>
     </staff>
-    <staff id="29">
+    <staff id="53">
       <name>Tom Bisset</name>
       <role>Cash</role>
     </staff>
-    <staff id="30">
+    <staff id="54">
       <name>Huck Sasche</name>
       <role>Chef</role>
     </staff>
-    <staff id="31">
+    <staff id="55">
       <name>Alex Torske</name>
       <role>Management</role>
     </staff>
-    <staff id="32">
+    <staff id="56">
       <name>Carlo Mole</name>
       <role>Cook</role>
     </staff>
   </staffs>
-  <shifts id="33">
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="34">
-      <startTime id="35">18:00:00</startTime>
-      <endTime id="36">22:00:00</endTime>
-      <shiftDate id="37">2016-10-27</shiftDate>
-      <staff id="38">
-        <staff reference="28"/>
-        <staff id="39">
-          <name>Thomas Christinck</name>
-          <role>Cook</role>
-        </staff>
+  <shifts id="57">
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="58">
+      <startTime id="59">13:00:00</startTime>
+      <endTime id="60">18:00:00</endTime>
+      <shiftDate id="61">2016-11-30</shiftDate>
+      <staff id="62">
+        <staff reference="52"/>
+        <staff reference="55"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="40">
-      <startTime id="41">10:00:00</startTime>
-      <endTime id="42">16:00:00</endTime>
-      <shiftDate id="43">2016-10-28</shiftDate>
-      <staff id="44">
-        <staff reference="29"/>
-        <staff reference="30"/>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="63">
+      <startTime id="64">11:00:00</startTime>
+      <endTime id="65">15:00:00</endTime>
+      <shiftDate id="66">2016-12-01</shiftDate>
+      <staff id="67">
+        <staff reference="52"/>
+        <staff reference="55"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="45">
-      <startTime id="46">20:00:00</startTime>
-      <endTime id="47">21:00:00</endTime>
-      <shiftDate id="48">2016-11-28</shiftDate>
-      <staff id="49">
-        <staff reference="28"/>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="68">
+      <startTime id="69">14:00:00</startTime>
+      <endTime id="70">19:00:00</endTime>
+      <shiftDate id="71">2016-12-02</shiftDate>
+      <staff id="72">
+        <staff reference="52"/>
+        <staff reference="55"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
   </shifts>
-  <equipment id="50">
-    <equipment id="51">
+  <equipment id="73">
+    <equipment id="74">
       <name>Spoons</name>
       <quantity>110</quantity>
     </equipment>
-    <equipment id="52">
+    <equipment id="75">
       <name>Large Forks</name>
       <quantity>100</quantity>
+    </equipment>
+    <equipment id="76">
+      <name>Butter Knife</name>
+      <quantity>10</quantity>
     </equipment>
   </equipment>
 </manager>

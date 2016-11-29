@@ -96,7 +96,7 @@ public class MenuController {
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 
-	public void addItemToOrder(Item item) throws InvalidInputException{
+	public void makeOrder(Item item) throws InvalidInputException{
 		String error = "";
 		if (item == null)
 			error = error + " Must select item to add!";
@@ -104,64 +104,35 @@ public class MenuController {
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
 		
+		
 		FoodTruckManager fm = FoodTruckManager.getInstance();
-		if(fm.numberOfOrders() == 0){
-			Calendar c = Calendar.getInstance();
-			java.util.Date utilDate = c.getTime();
-			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			Time orderTime = new Time(sqlDate.getTime());
-			Order order = new Order(orderNumbers, sqlDate, orderTime);
-			order.addItem(item);
-			fm.addOrder(order);
-		}
-		else{
-			if (fm.getOrder(orderNumbers) == null){
-				Calendar c = Calendar.getInstance();
-				java.util.Date utilDate = c.getTime();
-				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-				Time orderTime = new Time(sqlDate.getTime());
-				Order order = new Order(orderNumbers, sqlDate, orderTime);
-				order.addItem(item);
-				fm.addOrder(order);
-			}
-			else{
-			fm.getOrder(orderNumbers).addItem(item);
-			}
-		}
+		int orderNumber = fm.getOrders().size();
+		Calendar c = Calendar.getInstance();
+		java.util.Date utilDate = c.getTime();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		Time orderTime = new Time(sqlDate.getTime());
+		Order order = new Order(orderNumber, sqlDate, orderTime);
+		order.addItem(item);
+		fm.addOrder(order);
+	
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
 
-	public void removeItemFromOrder(Item item) throws InvalidInputException{
+	public void removeOrder() throws InvalidInputException{
+		FoodTruckManager fm = FoodTruckManager.getInstance();
 		String error = "";
-		if (item == null)
-			error = error + " Must select item to remove!";
+		if (fm.getOrders().size() == 0)
+			error = error + " No orders have been made!";
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
+		int orderNumber = fm.getOrders().size() - 1;
+		fm.removeOrder(fm.getOrder(orderNumber));
 		
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		fm.getOrder(orderNumbers).removeItem(item);
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
-	public void makeOrder() throws InvalidInputException{
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		String error = "";
-		if (fm.numberOfOrders() == 0)
-			error = error + " 1Cannot make an order with no items!";
-		if (fm.numberOfOrders() != 0){
-			if(!fm.getOrder(orderNumbers).hasItem())
-				error = error + " 2Cannot make an order with no items!";
-		}
-		error = error.trim();
-		if(error.length() > 0)
-			throw new InvalidInputException(error);
-		
-		System.out.println("ORDERNUMBERS: " + orderNumbers);
-		orderNumbers++;
-		PersistenceXStream.saveToXMLwithXStream(fm);
-	}
 	
 	public void viewMenu() throws IOException{
 		 try {
@@ -188,6 +159,75 @@ public class MenuController {
 				 out.newLine();
 				 out.newLine();
 			 }
+			 out.close();
+			 java.awt.Desktop.getDesktop().edit(file);
+		 } catch (IOException e) {
+			 throw new IOException(e);
+		 }
+	}
+	
+	public void viewStatistics() throws IOException{
+		 try {
+			 FoodTruckManager fm = FoodTruckManager.getInstance();
+			 File file = new File("statistics.txt");
+
+			 //If file doesn't exist, then create it
+			 if (!file.exists()) {
+				 file.createNewFile();
+			 }
+
+			 FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			 BufferedWriter out = new BufferedWriter(fw);
+			 out.write("\t\t\t\t\t" + "Statistics");
+			 out.newLine();
+			 out.newLine();
+			 out.write("Item List");
+			 out.newLine();
+			 for (int i = 0; i < fm.getItems().size(); i++) {
+				 int itemNumber = i + 1;
+				 out.write(itemNumber + ". " + fm.getItem(i).getName());
+				 out.newLine(); 
+				 out.newLine();
+				 if (fm.getItem(i).hasSupply()){
+					 out.write("Ingredients:");
+					 out.newLine();
+					 for(int j = 0; j < fm.getItem(i).getSupply().size(); j++){
+						 out.write(fm.getItem(i).getSupply(j).getName());
+						 out.newLine();
+					 }
+				 }
+				 else{
+					 out.write("WARNING! Item does not have supplies on ingredients list!");
+					 out.newLine(); 
+				 }
+				 out.newLine();
+			 }
+			 out.write(" _____________________________________________________________________");
+			 out.newLine();
+			 out.newLine();
+			 out.write("Menu Item Statistics (Ranked by Popularity)");
+			 out.newLine();
+			 int orderNumber[] = new int[fm.getItems().size()];
+			 for (int i = 0; i < fm.getOrders().size(); i++) {
+				 for(int j = 0; j < fm.getItems().size(); j++){
+					 //Check if ordered item matches the nth menu item
+					 if(fm.getOrder(i).getItem(0) == fm.getItem(j)){
+					 	orderNumber[j]++;
+					 }
+				 }
+			 }
+			 String header = String.format("%-28s%-28s\n", "Item", "Times Ordered");
+			 out.newLine();
+			 out.write(header);
+			 out.newLine();
+			 Arrays.sort(orderNumber);
+			 for(int j = 0; j < orderNumber.length; j++){
+				 String ranking = String.format("%-28s%-28s\n", "" + Integer.toString(j) + ". " + fm.getItem(j).getName(), "" + Integer.toString(orderNumber[j]));
+				 	out.write(ranking);
+				 	out.newLine();
+				 	out.newLine();
+			 }
+			 
 			 out.close();
 			 java.awt.Desktop.getDesktop().edit(file);
 		 } catch (IOException e) {
