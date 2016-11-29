@@ -1,10 +1,9 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
 import java.awt.Color;
-
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -20,12 +19,14 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.InvalidInputExcept
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.MenuController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
-import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Order;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 
 
 public class MenuPage extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
+	//UI elements for Items
+	private JButton returnButton;
+
 	//UI elements for Items
 	private JLabel errorMessage;
 	private JLabel itemTitle;
@@ -57,8 +58,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private Integer selectedItem = -1;
 	private Integer selectedItem2 = -1;
 	private HashMap<Integer, Item> item;
-	private Integer selectedOrderItem = -1;
-	private HashMap<Integer, Item> orderItem;
 	
 	private JButton viewStatsButton;
 	private JButton viewMenuButton;
@@ -73,9 +72,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 	/* This method is called from within the constructor to initialize the form*/
 	private void initComponents(){
-		//elements for error message
+		//Elements for Error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
+		
+		//Elements for return
+		returnButton = new JButton();
+		returnButton.setForeground(Color.GRAY);
 		
 		//Elements for item lists
 		supplyList = new JComboBox<String>(new String[0]);
@@ -131,6 +134,9 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		//Global settings and listeners
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		returnButton.setText("Main Menu");
+		
 		setTitle("Menu Manager");
 		itemTitle.setText("Items");
 		itemNameLabel.setText("Item Name:");
@@ -193,6 +199,26 @@ private static final long serialVersionUID = -8062635784771606869L;
 				viewMenuButtonActionPerformed(evt);
 			}
 		});
+		
+		viewStatsButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt){
+				viewStatsButtonActionPerformed(evt);
+			}
+		});
+		
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt){
+				returnButtonActionPerformed(evt);
+			}
+
+			private void returnButtonActionPerformed(ActionEvent evt) {
+				 MenuPage.this.dispose();
+			     new MainMenu().setVisible(true);
+				
+			}
+		});
+	
+	
 	
 	
 	
@@ -228,7 +254,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(removeOrderButton)
 								.addComponent(makeOrderButton))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(itemList2)))
+								.addComponent(itemList2)
+								.addComponent(returnButton)))
 				);
 		
 		/*layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
@@ -251,17 +278,17 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(itemList2))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(descriptionLabel)
-						.addComponent(descriptionTextField))
+						.addComponent(descriptionTextField)
+						.addComponent(makeOrderButton))
 				.addGroup(layout.createParallelGroup()
-						.addComponent(addItemButton))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(itemListLabel)
-						.addComponent(itemList)
+						.addComponent(addItemButton)
 						.addComponent(removeOrderButton))
 				.addGroup(layout.createParallelGroup()
+						.addComponent(itemListLabel)
+						.addComponent(itemList))
+				.addGroup(layout.createParallelGroup()
 						.addComponent(supplyListLabel)
-						.addComponent(supplyList)
-						.addComponent(makeOrderButton))
+						.addComponent(supplyList))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(addToItemButton))
 				.addGroup(layout.createParallelGroup()
@@ -270,7 +297,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(removeItemButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(viewMenuButton)
-						.addComponent(viewStatsButton)));
+						.addComponent(viewStatsButton)
+						.addComponent(returnButton)));
 		pack();
 	}
 	
@@ -289,7 +317,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			while(sIt.hasNext()){
 				Supply s = sIt.next();
 				supply.put(index,  s);
-				supplyList.addItem(s.getName() + " (" + s.getQuantity() + ") " + "BB: " + bestBeforeToString(s.getBestBefore()));
+				supplyList.addItem(s.getName());
 				index++;
 			}
 			selectedSupply = -1;
@@ -428,13 +456,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 		refreshData();
 	}
 	
-	public String bestBeforeToString(Date bestBefore){
-		String date = bestBefore.toString();
-		String[] yearMonthDay = date.split("-");
-		date = yearMonthDay[2] + "/" + yearMonthDay[1] + "/" + yearMonthDay[0];
-		return date;
+	private void viewStatsButtonActionPerformed(java.awt.event.ActionEvent evt){
+		//Call the controller
+		MenuController mc = new MenuController();
+		error = null;
+		try {
+			mc.viewStatistics();
+		} catch (IOException e) {
+			error = e.getMessage();
+		} 
+		//Update visuals
+		refreshData();
 	}
-
 }
 
 

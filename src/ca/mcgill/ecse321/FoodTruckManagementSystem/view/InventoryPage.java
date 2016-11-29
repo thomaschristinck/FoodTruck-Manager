@@ -1,7 +1,8 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
 import java.awt.Color;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,6 +32,9 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 
 public class InventoryPage extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
+	//UI element for return
+	private JButton returnButton;
+
 	//UI elements for Supplies
 	private JLabel errorMessage;
 	private JTextField supplyNameTextField;
@@ -87,6 +91,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//elements for error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
+		
+		//elements for return button
+		returnButton = new JButton();
+		returnButton.setForeground(Color.GRAY);
 		
 		//Elements for supply list
 		supplyList = new JComboBox<String>(new String[0]);
@@ -167,6 +175,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		//Global settings and listeners
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		returnButton.setText("Main Menu");
 		setTitle("Inventory Manager");
 		supplyNameLabel.setText("Supply:");
 		supplyQuantityLabel.setText("Quantity:");
@@ -238,6 +247,17 @@ private static final long serialVersionUID = -8062635784771606869L;
 			}
 		});
 	
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt){
+				returnButtonActionPerformed(evt);
+			}
+
+			private void returnButtonActionPerformed(ActionEvent evt) {
+				 InventoryPage.this.dispose();
+			     new MainMenu().setVisible(true);
+				
+			}
+		});
 	
 	
 		//layout
@@ -282,7 +302,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(removeEquipmentFromInventoryButton)
 								.addComponent(equipmentNameTextField)
 								.addComponent(equipmentQuantityField2, 25, 25, 50)
-								.addComponent(equipmentList2)))
+								.addComponent(equipmentList2)
+								.addComponent(returnButton)))
 				);
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
@@ -333,7 +354,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(equipmentList2))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(removeSupplyButton)
-						.addComponent(removeEquipmentButton)));
+						.addComponent(removeEquipmentButton)
+						.addComponent(returnButton)));
 		pack();
 	}
 	

@@ -374,7 +374,7 @@ public class FoodTruckManager
     }
     return wasRemoved;
   }
-
+  
   public boolean addOrderAt(Order aOrder, int index)
   {  
     boolean wasAdded = false;
