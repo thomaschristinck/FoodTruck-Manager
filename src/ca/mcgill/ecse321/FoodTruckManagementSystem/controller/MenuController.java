@@ -220,13 +220,14 @@ public class MenuController {
 					 }
 				 }
 			 }
+			 //Error is because jth spot in orderNumber corresponds to times jth item has been ordered, and then when we sort this array we lose indexing; fix
 			 String header = String.format("%-28s%-28s\n", "Item", "Times Ordered");
 			 out.newLine();
 			 out.write(header);
 			 out.newLine();
 			 Arrays.sort(orderNumber);
 			 for(int j = orderNumber.length - 1; j >= 0; j--){
-				 String ranking = String.format("%-28s%-28s\n", "" + Integer.toString(orderNumber.length - j) + ". " + fm.getItem(j).getName(), "" + Integer.toString(orderNumber[j]));
+				 String ranking = String.format("%-28s%-28s\n", "" + Integer.toString(orderNumber.length - j) + ". " + fm.getItem(orderNumber.length - 1 - j).getName(), "" + Integer.toString(orderNumber[j]));
 				 	out.write(ranking);
 				 	out.newLine();
 				 	out.newLine();
