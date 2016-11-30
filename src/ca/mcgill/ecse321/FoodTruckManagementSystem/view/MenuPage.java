@@ -309,8 +309,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 		//Set error message if there is one
 		errorMessage.setText(error);
+		generalMessage.setText("");
 		if (error == null || error.length() == 0){
-			generalMessage.setText(message);
 			//Supply list
 			supply = new HashMap<Integer, Supply>();
 			supplyList.removeAllItems();
@@ -357,7 +357,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Item text fields empty
 		itemNameTextField.setText("");
 		descriptionTextField.setText("");
-		
+
 		//Size of window changes depending on whether there is an error message
 		pack();
 		}
@@ -425,11 +425,14 @@ private static final long serialVersionUID = -8062635784771606869L;
 		error = null;
 		try {
 			message = mc.removeOrder();
+			//Update visuals
+			refreshData();
+			generalMessage.setText(message);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
+			//Update visuals
+			refreshData();
 		} 
-		//Update visuals
-		refreshData();
 	}
 	
 	private void makeOrderButtonActionPerformed(java.awt.event.ActionEvent evt){
@@ -438,11 +441,14 @@ private static final long serialVersionUID = -8062635784771606869L;
 		error = null;
 		try {
 			message = mc.makeOrder(item.get(selectedItem2));
+			//Update visuals
+			refreshData();
+			generalMessage.setText(message);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
+			//Update visuals
+			refreshData();
 		} 
-		//Update visuals
-		refreshData();
 	}
 	
 	private void viewMenuButtonActionPerformed(java.awt.event.ActionEvent evt){
