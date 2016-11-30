@@ -29,6 +29,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 	//UI elements for Items
 	private JLabel errorMessage;
+	private JLabel generalMessage;
 	private JLabel itemTitle;
 	private JTextField itemNameTextField;
 	private JTextField descriptionTextField;
@@ -53,6 +54,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 	
 	//Data elements for both items and orders
 	private String error = null;
+	private String message = null;
 	private Integer selectedSupply = -1;
 	private HashMap<Integer, Supply> supply;
 	private Integer selectedItem = -1;
@@ -75,6 +77,9 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Elements for Error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
+		
+		generalMessage = new JLabel();
+		generalMessage.setForeground(Color.GRAY);
 		
 		//Elements for return
 		returnButton = new JButton();
@@ -150,7 +155,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		orderTitle.setText("Orders");
 		itemListLabel2.setText("Select Item:");
-		removeOrderButton.setText("Remove from Order");
+		removeOrderButton.setText("Undo Last Order");
 		makeOrderButton.setText("Make Order");
 		viewStatsButton.setText("View Statistics");
 		viewMenuButton.setText("View Menu");
@@ -210,12 +215,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 			public void actionPerformed(ActionEvent evt){
 				returnButtonActionPerformed(evt);
 			}
-
-			private void returnButtonActionPerformed(ActionEvent evt) {
-				 MenuPage.this.dispose();
-			     new MainMenu().setVisible(true);
-				
-			}
 		});
 	
 	
@@ -230,6 +229,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		layout.setHorizontalGroup(
 				layout.createParallelGroup()
 				.addComponent(errorMessage)
+				.addComponent(generalMessage)
 				.addGroup(layout.createSequentialGroup()
 						.addGroup(layout.createParallelGroup()
 								.addComponent(itemTitle)
@@ -268,6 +268,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
 				.addComponent(errorMessage)
+				.addComponent(generalMessage)
 				.addGroup(layout.createParallelGroup()
 						.addComponent(itemTitle)
 						.addComponent(orderTitle))
@@ -299,6 +300,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(viewMenuButton)
 						.addComponent(viewStatsButton)
 						.addComponent(returnButton)));
+		this.setLocation(300,300);
 		pack();
 	}
 	
@@ -308,7 +310,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Set error message if there is one
 		errorMessage.setText(error);
 		if (error == null || error.length() == 0){
-			
+			generalMessage.setText(message);
 			//Supply list
 			supply = new HashMap<Integer, Supply>();
 			supplyList.removeAllItems();
@@ -422,7 +424,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		MenuController mc = new MenuController();
 		error = null;
 		try {
-			mc.removeOrder();
+			message = mc.removeOrder();
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
@@ -435,7 +437,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		MenuController mc = new MenuController();
 		error = null;
 		try {
-			mc.makeOrder(item.get(selectedItem2));
+			message = mc.makeOrder(item.get(selectedItem2));
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
@@ -467,6 +469,14 @@ private static final long serialVersionUID = -8062635784771606869L;
 		} 
 		//Update visuals
 		refreshData();
+	}
+	
+	private void returnButtonActionPerformed(ActionEvent evt) {
+		 MenuPage.this.dispose();
+	     new MainMenu().setVisible(true);
+	     //Update visuals
+		refreshData();
+		
 	}
 }
 

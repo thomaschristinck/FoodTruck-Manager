@@ -260,7 +260,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 		});
 	
 	
-		//layout
+		/**
+		 * Layout: First we have the Horizontal Layout (Components listed top to bottom, parallel groups
+		 * listed from left to right), and then the Vertical Layout (Components listed left to right, parallel
+		 * groups from top to bottom). The location of the content pane is set and the window is sized using 
+		 * pack().
+		 */
+		
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setAutoCreateGaps(true);
@@ -356,6 +362,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(removeSupplyButton)
 						.addComponent(removeEquipmentButton)
 						.addComponent(returnButton)));
+		this.setLocation(190,300);
 		pack();
 	}
 	
@@ -435,6 +442,11 @@ private static final long serialVersionUID = -8062635784771606869L;
 		pack();
 		
 	}
+	
+	/*
+	 * Listed below are methods that are called when a button is pressed. The appropriate method in the Supply
+	 * 
+	 */
 	
 	private void addSupplyButtonActionPerformed(java.awt.event.ActionEvent evt){
 		//Call the controller

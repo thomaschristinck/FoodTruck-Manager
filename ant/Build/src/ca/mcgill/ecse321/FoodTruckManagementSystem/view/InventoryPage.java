@@ -419,7 +419,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		SupplyController sc = new SupplyController();
 		error = null;
 		try {
-			sc.createSupply(supplyNameTextField.getText(), supplyQuantityField.getText(), (java.sql.Date) supplyBestBeforePicker.getModel().getValue());
+			sc.createSupply(supplyNameTextField.getText(), supplyQuantityField2.getText(), (java.sql.Date) supplyBestBeforePicker.getModel().getValue());
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 

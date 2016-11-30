@@ -8,7 +8,8 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStrea
 public class EquipmentController {
 	public EquipmentController(){
 	}
-
+	
+	//Comment:
 	public void createEquipment(String equipmentName, String quantity) throws InvalidInputException{
 			String error = "";
 			if (equipmentName == null || equipmentName.trim().length() == 0)
