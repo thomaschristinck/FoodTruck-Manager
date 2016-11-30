@@ -153,7 +153,6 @@ public class Item
     supply.clear();
   }
 
-
   public String toString()
   {
     String outputString = "";

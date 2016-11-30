@@ -211,23 +211,52 @@ public class MenuController {
 			 out.newLine();
 			 out.write("Menu Item Statistics (Ranked by Popularity)");
 			 out.newLine();
+			 
 			 int orderNumber[] = new int[fm.getItems().size()];
-			 for (int i = 0; i < fm.getOrders().size(); i++) {
-				 for(int j = 0; j < fm.getItems().size(); j++){
-					 //Check if ordered item matches the nth menu item
+			 Item item[] = new Item[fm.getItems().size()];
+			 for(int j = 0; j < fm.getItems().size(); j++){
+				 for (int i = 0; i < fm.getOrders().size(); i++) {
+					 /*Check if ordered item matches the nth menu item. The jth place in orderNumber corresponds to
+					  * the number of orders the jth item has.
+					  */
+					 
 					 if(fm.getOrder(i).getItem(0) == fm.getItem(j)){
 					 	orderNumber[j]++;
 					 }
 				 }
+				 item[j] = fm.getItem(j);
 			 }
-			 //Error is because jth spot in orderNumber corresponds to times jth item has been ordered, and then when we sort this array we lose indexing; fix
+			 
+			 /*
+			  * Loop through orderNumber[]. If the j - 1th entry is less than the jth entry, then put j-1th item into the
+			  * jth place in item[] array. (The orderNumber[] array is sorted correspondingly).
+			  */
+
+			 int temp;
+			 Item tempItem;
+			 for(int i = 0; i < orderNumber.length; i++){
+				 for (int j = 1; j < orderNumber.length - i; j++){
+					 if (orderNumber[j-1] <= orderNumber[j]){
+						 temp = orderNumber[j-1];
+						 orderNumber[j-1] = orderNumber[j];
+						 orderNumber[j] = temp;
+						 tempItem = item[j-1];
+						 item[j - 1] = item[j];
+						 item[j] = tempItem;
+					 }
+				 
+				 }
+			 }
+
+			
 			 String header = String.format("%-28s%-28s\n", "Item", "Times Ordered");
 			 out.newLine();
 			 out.write(header);
 			 out.newLine();
-			 Arrays.sort(orderNumber);
-			 for(int j = orderNumber.length - 1; j >= 0; j--){
-				 String ranking = String.format("%-28s%-28s\n", "" + Integer.toString(orderNumber.length - j) + ". " + fm.getItem(orderNumber.length - 1 - j).getName(), "" + Integer.toString(orderNumber[j]));
+			
+			 
+			 for(int j = 0; j < orderNumber.length; j++){
+				 String ranking = String.format("%-28s%-28s\n", "" + Integer.toString(j + 1) + ". " + item[j].getName(), "" + Integer.toString(orderNumber[j]));
 				 	out.write(ranking);
 				 	out.newLine();
 				 	out.newLine();
@@ -239,4 +268,5 @@ public class MenuController {
 			 throw new IOException(e);
 		 }
 	}
+	
 }
