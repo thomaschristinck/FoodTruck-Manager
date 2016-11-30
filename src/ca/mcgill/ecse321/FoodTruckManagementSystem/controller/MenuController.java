@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.*;
 import java.sql.Time;
 
@@ -96,7 +95,7 @@ public class MenuController {
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 
-	public void makeOrder(Item item) throws InvalidInputException{
+	public String makeOrder(Item item) throws InvalidInputException{
 		String error = "";
 		if (item == null)
 			error = error + " Must select item to add!";
@@ -112,14 +111,16 @@ public class MenuController {
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		Time orderTime = new Time(sqlDate.getTime());
 		Order order = new Order(orderNumber, sqlDate, orderTime);
-		order.addItem(item);
+		order.addItemAt(item, 0);
+		String message = order.getItem(0).getName() + " was ordered.";
 		fm.addOrder(order);
 	
 		PersistenceXStream.saveToXMLwithXStream(fm);
+		return message;
 	}
 	
 
-	public void removeOrder() throws InvalidInputException{
+	public String removeOrder() throws InvalidInputException{
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		String error = "";
 		if (fm.getOrders().size() == 0)
@@ -128,9 +129,11 @@ public class MenuController {
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
 		int orderNumber = fm.getOrders().size() - 1;
+		String message = "The last order (" + fm.getOrder(orderNumber).getItem(0).getName() + ") was removed.";
 		fm.removeOrder(fm.getOrder(orderNumber));
 		
 		PersistenceXStream.saveToXMLwithXStream(fm);
+		return message;
 	}
 	
 	

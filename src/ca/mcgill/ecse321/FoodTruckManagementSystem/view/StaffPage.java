@@ -344,6 +344,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(generateSchedButton)
 						.addComponent(returnButton))
 				);
+		this.setLocation(300,300);
 		pack();
 	}
 	
