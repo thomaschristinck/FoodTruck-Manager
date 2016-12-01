@@ -41,7 +41,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private JTextField supplyQuantityField;
 	private JLabel supplyNameLabel;
 	private JLabel supplyQuantityLabel;
-	private JLabel supplyQuantityLabel2;
 	private JLabel supplyBestBeforeLabel;
 	private JButton addSupplyButton;
 	private JButton removeSupplyButton;
@@ -52,14 +51,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private JDatePickerImpl supplyBestBeforePicker;
 	private JComboBox<String> supplyList2;
 	private JLabel supplyListLabel2;
-	private JTextField supplyQuantityField2;
+	private JButton viewSupplyListButton;
 	
 	//UI elements for equipment
 	private JTextField equipmentNameTextField;
 	private JTextField equipmentQuantityField;
 	private JLabel equipmentNameLabel;
 	private JLabel equipmentQuantityLabel;
-	private JLabel equipmentQuantityLabel2;
 	private JButton addEquipmentButton;
 	private JButton removeEquipmentButton;
 	private JButton addEquipmentToInventoryButton;
@@ -68,7 +66,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private JLabel equipmentListLabel;
 	private JComboBox<String> equipmentList2;
 	private JLabel equipmentListLabel2;
-	private JTextField equipmentQuantityField2;
+	private JButton viewEquipmentListButton;
 	
 	//Data elements for both equipment and supplies
 	private String error = null;
@@ -156,8 +154,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Elements for adding/removing Supply to/from inventory
 		addSupplyToInventoryButton = new JButton();
 		removeSupplyFromInventoryButton = new JButton();
-		supplyQuantityLabel2 = new JLabel();
-		supplyQuantityField2 = new JTextField();
 	
 		//Elements for adding/removing Equipment
 		equipmentNameTextField = new JTextField();
@@ -168,10 +164,12 @@ private static final long serialVersionUID = -8062635784771606869L;
 		removeEquipmentButton = new JButton();
 		
 		//Elements for adding/removing Equipment to/from inventory
-		equipmentQuantityLabel2 = new JLabel();
 		addEquipmentToInventoryButton = new JButton();
 		removeEquipmentFromInventoryButton = new JButton();
-		equipmentQuantityField2 = new JTextField();
+		
+		//Elements viewing lists
+		viewSupplyListButton = new JButton();
+		viewEquipmentListButton = new JButton();
 		
 		//Global settings and listeners
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -179,7 +177,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 		setTitle("Inventory Manager");
 		supplyNameLabel.setText("Supply:");
 		supplyQuantityLabel.setText("Quantity:");
-		supplyQuantityLabel2.setText("Quantity:");
 		supplyBestBeforeLabel.setText("Best Before:");
 		supplyListLabel.setText("Select Supply:");
 		supplyListLabel2.setText("Select Supply:");
@@ -187,17 +184,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 		removeSupplyButton.setText("Remove Supply");
 		addSupplyToInventoryButton.setText("Add Quantity");
 		removeSupplyFromInventoryButton.setText("Remove Quantity");
+		viewSupplyListButton.setText("View Supplies");
 		
 		equipmentNameLabel.setText("Equipment:");
 		equipmentQuantityLabel.setText("Quantity:");
 		equipmentListLabel.setText("Select Equipment:");
 		equipmentListLabel.setText("Select Equipment:");
 		equipmentListLabel2.setText("Select Equipment to Remove:");
-		equipmentQuantityLabel2.setText("Quantity:");
 		addEquipmentButton.setText("Add Equipment");
 		removeEquipmentButton.setText("Remove Equipment");
 		addEquipmentToInventoryButton.setText("Add Quantity");
 		removeEquipmentFromInventoryButton.setText("Remove Quantity");
+		viewEquipmentListButton.setText("View Equipment");
 		
 		addSupplyButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt){
@@ -247,6 +245,18 @@ private static final long serialVersionUID = -8062635784771606869L;
 				removeEquipmentButtonActionPerformed(evt);
 			}
 		});
+		
+		viewSupplyListButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt){
+				viewSupplyListButtonActionPerformed(evt);
+			}
+		});
+		
+		viewEquipmentListButton.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt){
+				viewEquipmentListButtonActionPerformed(evt);
+			}
+		});
 	
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt){
@@ -281,17 +291,16 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(supplyQuantityLabel)
 								.addComponent(addSupplyToInventoryButton)
 								.addComponent(supplyNameLabel)
-								.addComponent(supplyQuantityLabel2)
 								.addComponent(supplyBestBeforeLabel)
 								.addComponent(addSupplyButton)
 								.addComponent(supplyListLabel2)
-								.addComponent(removeSupplyButton))
+								.addComponent(removeSupplyButton)
+								.addComponent(viewSupplyListButton))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(supplyList)
 								.addComponent(supplyQuantityField)
 								.addComponent(removeSupplyFromInventoryButton)
 								.addComponent(supplyNameTextField)
-								.addComponent(supplyQuantityField2, 25, 25, 50)
 								.addComponent(supplyBestBeforePicker)
 								.addComponent(supplyList2))
 						.addGroup(layout.createParallelGroup()
@@ -299,22 +308,24 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(equipmentQuantityLabel)
 								.addComponent(addEquipmentToInventoryButton)
 								.addComponent(equipmentNameLabel)
-								.addComponent(equipmentQuantityLabel2)
 								.addComponent(addEquipmentButton)
 								.addComponent(equipmentListLabel2)
-								.addComponent(removeEquipmentButton))
+								.addComponent(removeEquipmentButton)
+								.addComponent(viewEquipmentListButton))
 						.addGroup(layout.createParallelGroup()
 								.addComponent(equipmentList)
 								.addComponent(equipmentQuantityField)
 								.addComponent(removeEquipmentFromInventoryButton)
 								.addComponent(equipmentNameTextField)
-								.addComponent(equipmentQuantityField2, 25, 25, 50)
 								.addComponent(equipmentList2)
 								.addComponent(returnButton)))
 				);
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
 				{supplyNameLabel, supplyBestBeforeLabel, supplyQuantityLabel});
+		
+		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
+				{viewSupplyListButton, viewEquipmentListButton});
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
 				{addEquipmentButton, removeEquipmentButton, addSupplyButton, removeSupplyButton, addEquipmentToInventoryButton
@@ -345,11 +356,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(equipmentNameLabel)
 						.addComponent(equipmentNameTextField))
 				.addGroup(layout.createParallelGroup()
-						.addComponent(supplyQuantityLabel2)						
-						.addComponent(supplyQuantityField2)
-						.addComponent(equipmentQuantityLabel2)						
-						.addComponent(equipmentQuantityField2))
-				.addGroup(layout.createParallelGroup()
 						.addComponent(supplyBestBeforeLabel)
 						.addComponent(supplyBestBeforePicker))
 				.addGroup(layout.createParallelGroup()
@@ -362,7 +368,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(equipmentList2))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(removeSupplyButton)
-						.addComponent(removeEquipmentButton)
+						.addComponent(removeEquipmentButton))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(viewSupplyListButton)
+						.addComponent(viewEquipmentListButton)
 						.addComponent(returnButton)));
 		this.setLocation(190,300);
 		pack();
@@ -433,12 +442,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Supply text fields empty
 		supplyNameTextField.setText("");
 		supplyQuantityField.setText("");
-		supplyQuantityField2.setText("");
 		
 		//Equipment text fields empty
 		equipmentNameTextField.setText("");
 		equipmentQuantityField.setText("");
-		equipmentQuantityField2.setText("");
 		
 		//Size of window changes depending on whether there is an error message
 		pack();
@@ -456,7 +463,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		SupplyController sc = new SupplyController();
 		error = null;
 		try {
-			sc.createSupply(supplyNameTextField.getText(), supplyQuantityField2.getText(), (java.sql.Date) supplyBestBeforePicker.getModel().getValue());
+			sc.createSupply(supplyNameTextField.getText(), (java.sql.Date) supplyBestBeforePicker.getModel().getValue());
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
@@ -511,7 +518,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		EquipmentController ec = new EquipmentController();
 		error = null;
 		try {
-			ec.createEquipment(equipmentNameTextField.getText(), equipmentQuantityField2.getText());
+			ec.createEquipment(equipmentNameTextField.getText());
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		} 
@@ -560,6 +567,33 @@ private static final long serialVersionUID = -8062635784771606869L;
 		refreshData();
 	}
 	
+	private void viewSupplyListButtonActionPerformed(java.awt.event.ActionEvent evt){
+		//Call the controller
+		SupplyController sc = new SupplyController();
+		error = null;
+		try {
+			sc.viewSupplyList();
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		} 
+		
+		//Update visuals
+		refreshData();
+	}
+	
+	private void viewEquipmentListButtonActionPerformed(java.awt.event.ActionEvent evt){
+		//Call the controller
+		EquipmentController ec = new EquipmentController();
+		error = null;
+		try {
+			ec.viewEquipmentList();
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		} 
+		
+		//Update visuals
+		refreshData();
+	}
 	
 	public String bestBeforeToString(Date bestBefore){
 		String date = bestBefore.toString();

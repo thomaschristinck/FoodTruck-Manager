@@ -13,10 +13,9 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 /**
- * The SupplyController class is responsible for creating/removing supplies, adding/removing a quantity
+ * The SupplyController class is responsible for creating/removing supplies, and adding/removing a quantity
  * of a supply to the inventory. The SupplyController will also provide functionality for allowing the user to view 
  * the supply list as a .txt file that they may re-format in a text editor. 
- * popularity, etc.).
  * 
  * Note: A small problem is the best before date implementation. The user should have the option of updating the best 
  * before date of a supply, to avoid problems with the listing of menu item ingredients. 
@@ -29,26 +28,19 @@ public class SupplyController {
 	public SupplyController(){
 	}
 	/**
-	 * The createSupply method creates a supply and adds the specified quantity to the food truck inventory. If the
-	 * supply's best before date has passed, an error message will appear. 
+	 * The createSupply method creates a supply on the food truck inventory supply list. Note the default 
+	 * quantity is zero. The manager then has to add/remove an appropriate quantity. If the supply's best before 
+	 * date has passed, an error message will appear. 
 	 * 
 	 * @param supplyName
 	 * @param quantity
 	 * @param bestBefore
 	 * @throws InvalidInputException
 	 */
-	public void createSupply(String supplyName, String quantity, Date bestBefore) throws InvalidInputException{
+	public void createSupply(String supplyName, Date bestBefore) throws InvalidInputException{
 			String error = "";
 			if (supplyName == null || supplyName.trim().length() == 0)
 				error = error + " Supply name cannot be empty!";
-			try{
-				int quant = Integer.parseInt(quantity);
-				if (quant <= 0)
-					error = error + " Supply must have a quantity greater than 0 to be added!";
-			}
-			catch(NumberFormatException e){
-				error = error + " Not a valid supply quantity!";
-			}
 			if  (bestBefore == null) 
 				error = error + " Best before date must be entered!";
 			Calendar c = Calendar.getInstance();
@@ -63,7 +55,7 @@ public class SupplyController {
 				throw new InvalidInputException(error);
 		
 			
-			Supply supply = new Supply(supplyName, Integer.parseInt(quantity), bestBefore);
+			Supply supply = new Supply(supplyName, 0, bestBefore);
 			FoodTruckManager fm = FoodTruckManager.getInstance();
 			fm.addSupply(supply);
 			PersistenceXStream.saveToXMLwithXStream(fm);

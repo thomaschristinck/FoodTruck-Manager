@@ -41,23 +41,21 @@ public class TestEquipmentController {
 		assertEquals(0, fm.getEquipment().size());
 		
 		String name = "Large Forks";
-		String quantity = "10";
-		int quantityInt = Integer.parseInt(quantity);
 		
 		EquipmentController ec = new EquipmentController();
 		try {
-			ec.createEquipment(name, quantity);
+			ec.createEquipment(name);
 		} catch (InvalidInputException e) {
 			//check no error occurred
 			fail();
 		}
 		
-		checkResultEquipment(name, quantityInt, fm);
+		checkResultEquipment(name, fm);
 		
 		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
 		
 		//check file contents
-		checkResultEquipment(name, quantityInt, fm2);
+		checkResultEquipment(name, fm2);
 	}
 	
 	@Test
@@ -66,18 +64,17 @@ public class TestEquipmentController {
 		assertEquals(0, fm.getEquipment().size());
 		
 		String name = null;
-		String quantity = null;
 		String error = null;
 		
 		EquipmentController ec = new EquipmentController();
 		try {
-			ec.createEquipment(name, quantity);
+			ec.createEquipment(name);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		
 		//Check error message
-		assertEquals("Equipment name cannot be empty! Not a valid equipment quantity!", error);
+		assertEquals("Equipment name cannot be empty!", error);
 		
 		//Check for no change in memory
 		assertEquals(0, fm.getEquipment().size());
@@ -91,18 +88,17 @@ public class TestEquipmentController {
 		assertEquals(0, fm.getEquipment().size());
 		
 		String name = "";
-		String quantity = "";
 		String error = null;
 		
 		EquipmentController ec = new EquipmentController();
 		try {
-			ec.createEquipment(name, quantity);
+			ec.createEquipment(name);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		
 		//Check error message
-		assertEquals("Equipment name cannot be empty! Not a valid equipment quantity!", error);
+		assertEquals("Equipment name cannot be empty!", error);
 		
 		//Check for no change in memory
 		assertEquals(0, fm.getEquipment().size());
@@ -164,10 +160,6 @@ public class TestEquipmentController {
 	
 		String name = "Potato Bag, 10 kg";
 		int quantity = 15;
-
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.OCTOBER,30,9,00,0);
-		Date bestBeforeDate = new Date(c.getTimeInMillis());
 		
 		Equipment equipment = new Equipment(name, quantity);
 		fm.addEquipment(equipment);
@@ -361,12 +353,12 @@ public class TestEquipmentController {
 	}
 	
 	
-	private void checkResultEquipment(String name, int quantity, FoodTruckManager fm2) 
+	private void checkResultEquipment(String name, FoodTruckManager fm2) 
 	{
 		
 		assertEquals(1, fm2.getEquipment().size());
 		assertEquals(name, fm2.getEquipment(0).getName());
-		assertEquals(quantity, fm2.getEquipment(0).getQuantity());
+		assertEquals(0, fm2.getEquipment(0).getQuantity());
 	}
 	
 	private void checkResultAddEquipmentToInventory(Equipment equipment, int quantity, String addQuantity, FoodTruckManager fm2){

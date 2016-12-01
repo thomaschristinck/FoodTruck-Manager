@@ -21,12 +21,21 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStrea
  * text editor of their choice.
  *  
  * @author thomaschristinck
+ * @version 1.0
  */
 public class StaffController {
 	public StaffController ()
 	{
 	}
-	
+	/**
+	 * The createStaff method adds a staff member to the Food Truck Management System. A staff
+	 * member must have a name and a role. The name is allowed to be a number (if the manager wishes
+	 * to use a numerical staff naming system) or a String.
+	 * 
+	 * @param name
+	 * @param role
+	 * @throws InvalidInputException
+	 */
 	public void createStaff(String name, String role) throws InvalidInputException
 	{
 		String error = "";
@@ -45,6 +54,15 @@ public class StaffController {
 		PersistenceXStream.saveToXMLwithXStream(fm);	
 	}
 	
+	/**
+	 * The removeStaff method allows removal of a staff member previously entered in the FoodTruckManagementSystem.
+	 * Staff selection will be achieved through a user removing the staff member through a drop down menu, and
+	 * so there is limited opportunity for errors to occur (aside from the case where no staff member is selected
+	 * to remove).
+	 * 
+	 * @param staff
+	 * @throws InvalidInputException
+	 */
 	public void removeStaff(Staff staff) throws InvalidInputException
 	{
 		if (staff == null || staff.toString().trim().length() == 0) 
@@ -55,6 +73,16 @@ public class StaffController {
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
+	/**
+	 * The createShift method adds a shift time slot. The shift start time must be before the shift end time.
+	 * Currently there is no functionality for adding repeat shifts (every Friday from 2-8pm); however, this
+	 * could be added in later versions. As of version 1.0 the manager has to enter each individual shift manually.
+	 * 
+	 * @param date
+	 * @param startTime
+	 * @param endTime
+	 * @throws InvalidInputException
+	 */
 	public void createShift(Date date, Time startTime, Time endTime) throws InvalidInputException
 	{
 		String error = " ";
@@ -77,6 +105,12 @@ public class StaffController {
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
+	/**
+	 * The removeShift method allows the manager to remove a time slot previously saved as a shift. This
+	 * will be achieved through a drop-down menu to limit the possibility of errors.
+	 * @param shift
+	 * @throws InvalidInputException
+	 */
 	public void removeShift(Shift shift) throws InvalidInputException
 	{
 		if (shift == null || shift.toString().trim().length() == 0) 
@@ -86,6 +120,16 @@ public class StaffController {
 		fm.removeShift(shift);
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
+	
+	/**
+	 * The addShiftToStaff method allows for adding a previously created shift to a previously added
+	 * staff member. Because these fields are all pre-established, they will be selected by a drop-down 
+	 * menu. If a staff member already has the selected shift assigned to them, an error will occur.
+	 * 
+	 * @param staff
+	 * @param shift
+	 * @throws InvalidInputException
+	 */
 	public void addShiftToStaff(Staff staff, Shift shift) throws InvalidInputException
 	{
 		FoodTruckManager fm = FoodTruckManager.getInstance();
@@ -111,6 +155,16 @@ public class StaffController {
 		fm.addShift(shift);
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
+	
+	/**
+	 * Similar to adding a shift to a staff member, a shift can be removed from a staff member through 
+	 * removeShiftFromStaff. Both fields (staff member, shift) will be selected from a drop-down menu and if the 
+	 * selected staff does not have the selected shift assigned to them, an error message will appear.
+	 * 
+	 * @param staff
+	 * @param shift
+	 * @throws InvalidInputException
+	 */
 	public void removeShiftFromStaff(Staff staff, Shift shift) throws InvalidInputException
 	{
 		String error = "";
@@ -132,7 +186,17 @@ public class StaffController {
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
+	/**
+	 * The viewSchedule method displays the schedule of a staff member as a .txt file. The schedule generated shows all of the
+	 * selected staff member's shifts over a period of time determined by the user. 
+	 * 
+	 * @param staff
+	 * @param startDate
+	 * @param endDate
+	 * @throws InvalidInputException
+	 */
 	public void viewSchedule(Staff staff, Date startDate, Date endDate) throws InvalidInputException{
+		//Input errors
 		String error = " ";
 		if(staff == null)
 			error = error + " Must select staff!";

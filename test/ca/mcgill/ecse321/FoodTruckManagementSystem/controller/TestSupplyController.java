@@ -39,8 +39,6 @@ public class TestSupplyController {
 		assertEquals(0, fm.getSupplies().size());
 		
 		String name = "Canned Black Beans, 1 kg";
-		String quantity = "10";
-		int quantityInt = Integer.parseInt(quantity);
 		
 		Calendar c = Calendar.getInstance();
 		c.set(2017, Calendar.OCTOBER,30,9,00,0);
@@ -49,18 +47,18 @@ public class TestSupplyController {
 		
 		SupplyController sc = new SupplyController();
 		try {
-			sc.createSupply(name, quantity, bestBeforeDate);
+			sc.createSupply(name, bestBeforeDate);
 		} catch (InvalidInputException e) {
 			//check no error occurred
 			fail();
 		}
 		
-		checkResultSupply(name, quantityInt, bestBeforeDate, fm);
+		checkResultSupply(name, bestBeforeDate, fm);
 		
 		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
 		
 		//check file contents
-		checkResultSupply(name, quantityInt, bestBeforeDate, fm2);
+		checkResultSupply(name, bestBeforeDate, fm2);
 	}
 	
 	@Test
@@ -69,19 +67,18 @@ public class TestSupplyController {
 		assertEquals(0, fm.getSupplies().size());
 		
 		String name = null;
-		String quantity = null;
 		Date bestBeforeDate = null;
 		String error = null;
 		
 		SupplyController sc = new SupplyController();
 		try {
-			sc.createSupply(name, quantity, bestBeforeDate);
+			sc.createSupply(name, bestBeforeDate);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		
 		//Check error message
-		assertEquals("Supply name cannot be empty! Not a valid supply quantity! Best before date must be entered!", error);
+		assertEquals("Supply name cannot be empty! Best before date must be entered!", error);
 		
 		//Check for no change in memory
 		assertEquals(0, fm.getSupplies().size());
@@ -95,19 +92,18 @@ public class TestSupplyController {
 		assertEquals(0, fm.getSupplies().size());
 		
 		String name = "";
-		String quantity = "";
 		Date bestBeforeDate = null;
 		String error = null;
 		
 		SupplyController sc = new SupplyController();
 		try {
-			sc.createSupply(name, quantity, bestBeforeDate);
+			sc.createSupply(name, bestBeforeDate);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		
 		//Check error message
-		assertEquals("Supply name cannot be empty! Not a valid supply quantity! Best before date must be entered!", error);
+		assertEquals("Supply name cannot be empty! Best before date must be entered!", error);
 		
 		//Check for no change in memory
 		assertEquals(0, fm.getSupplies().size());
@@ -172,7 +168,6 @@ public class TestSupplyController {
 		assertEquals(0, fm.getSupplies().size());
 
 		String name = "Bags of Flour, 10 kg";
-		String quantity = "20";
 		
 		Calendar c = Calendar.getInstance();
 		c.set(2016, Calendar.OCTOBER,16,9,00,0);
@@ -183,7 +178,7 @@ public class TestSupplyController {
 		SupplyController sc = new SupplyController();
 		
 		try{
-			sc.createSupply(name, quantity, bestBeforeDate);
+			sc.createSupply(name, bestBeforeDate);
 		} catch (InvalidInputException e){
 			error = e.getMessage();
 		}
@@ -420,12 +415,12 @@ public class TestSupplyController {
 	}
 	
 	
-	private void checkResultSupply(String name, int quantity, Date bestBefore, FoodTruckManager fm2) 
+	private void checkResultSupply(String name, Date bestBefore, FoodTruckManager fm2) 
 	{
 		
 		assertEquals(1, fm2.getSupplies().size());
 		assertEquals(name, fm2.getSupply(0).getName());
-		assertEquals(quantity, fm2.getSupply(0).getQuantity());
+		assertEquals(0, fm2.getSupply(0).getQuantity());
 		assertEquals(bestBefore.toString(), fm2.getSupply(0).getBestBefore().toString());
 	}
 	
