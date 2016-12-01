@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.InvalidInputException;
@@ -80,7 +81,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		
 		generalMessage = new JLabel();
 		generalMessage.setForeground(Color.GRAY);
-		
+	
 		//Elements for return
 		returnButton = new JButton();
 		returnButton.setForeground(Color.GRAY);
@@ -258,12 +259,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 								.addComponent(returnButton)))
 				);
 		
-		/*layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
-				{addToItemButton, removeFromItemButton, addItemButton, removeItemButton});
-		
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
-				{addItemToOrderButton, removeOrderButton, makeOrderButton});*/
-		
+				{makeOrderButton, removeOrderButton, removeItemButton, removeFromItemButton, addToItemButton, addItemButton});
 		
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()

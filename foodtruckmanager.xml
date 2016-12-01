@@ -1,191 +1,542 @@
 <manager id="1">
   <supplies id="2">
     <supply id="3">
-      <name>Cinnamon Sticks</name>
-      <quantity>50</quantity>
-      <bestBefore id="4">2017-01-31</bestBefore>
-    </supply>
-    <supply id="5">
-      <name>Cheddar Cheese (1 kg Block)</name>
-      <quantity>10</quantity>
-      <bestBefore id="6">2016-12-03</bestBefore>
-    </supply>
-    <supply id="7">
-      <name>Aged Cheddar</name>
-      <quantity>5</quantity>
-      <bestBefore id="8">2016-12-10</bestBefore>
-    </supply>
-    <supply id="9">
       <name>Bread</name>
       <quantity>30</quantity>
-      <bestBefore id="10">2016-12-11</bestBefore>
+      <bestBefore id="4">2016-12-11</bestBefore>
     </supply>
-    <supply id="11">
+    <supply id="5">
       <name>Ground Beef</name>
       <quantity>40</quantity>
-      <bestBefore id="12">2016-12-05</bestBefore>
+      <bestBefore id="6">2016-12-05</bestBefore>
     </supply>
-    <supply id="13">
+    <supply id="7">
       <name>Macaroni</name>
       <quantity>10</quantity>
-      <bestBefore id="14">2017-02-21</bestBefore>
+      <bestBefore id="8">2017-02-21</bestBefore>
     </supply>
-    <supply id="15">
+    <supply id="9">
       <name>Hot Dogs</name>
       <quantity>5</quantity>
-      <bestBefore id="16">2016-12-30</bestBefore>
+      <bestBefore id="10">2016-12-30</bestBefore>
+    </supply>
+    <supply id="11">
+      <name>Butter</name>
+      <quantity>25</quantity>
+      <bestBefore id="12">2016-12-27</bestBefore>
+    </supply>
+    <supply id="13">
+      <name>Flour</name>
+      <quantity>20</quantity>
+      <bestBefore id="14">2017-02-10</bestBefore>
+    </supply>
+    <supply id="15">
+      <name>Pepperoni</name>
+      <quantity>30</quantity>
+      <bestBefore id="16">2017-03-11</bestBefore>
+    </supply>
+    <supply id="17">
+      <name>Pizza Sauce</name>
+      <quantity>100</quantity>
+      <bestBefore id="18">2017-03-30</bestBefore>
+    </supply>
+    <supply id="19">
+      <name>Mozarella</name>
+      <quantity>15</quantity>
+      <bestBefore id="20">2016-12-10</bestBefore>
     </supply>
   </supplies>
-  <items id="17">
-    <item id="18">
+  <items id="21">
+    <item id="22">
       <name>Macaroni and Cheese</name>
       <description>Our secret recipe. Made with aged cheddar and bacon.</description>
-      <supply id="19">
-        <supply reference="13"/>
-      </supply>
-    </item>
-    <item id="20">
-      <name>Sloppy Joe&apos;s</name>
-      <description>Our Sloppy Joe&apos;s are made with 100% fresh Canadian Angus beef. Served with fries. A must try! - $8</description>
-      <supply id="21">
-        <supply reference="3"/>
-        <supply reference="11"/>
-      </supply>
-    </item>
-    <item id="22">
-      <name>Raviolli</name>
-      <description>The dankest raviolli ever. Made with parmaesan straight from the Italian alps, and pasta stuffed with grade A beef - $10</description>
       <supply id="23">
+        <supply reference="7"/>
+        <supply reference="11"/>
         <supply id="24">
-          <name>Flour (20 lb bags)</name>
-          <quantity>31</quantity>
-          <bestBefore id="25">2019-11-28</bestBefore>
+          <name>Aged Cheddar</name>
+          <quantity>30</quantity>
+          <bestBefore id="25">2016-12-10</bestBefore>
         </supply>
       </supply>
     </item>
     <item id="26">
-      <name>Wood Fire Pizza</name>
-      <description>Made in a real wood furnace, our pizza dough is made using a recipe handed down for many generations. Toppings of choice. Comes in 10 or 16&quot; - $10 or $15</description>
-      <supply id="27"/>
-    </item>
-    <item id="28">
-      <name>Grilled Cheese</name>
-      <description>Our grilled cheese is made with a blend of old cheddar and Jalepeno Monteray Jack. Made with your choice of whole grain or french bread. Served with sweet potato fries - $7</description>
-      <supply id="29">
-        <supply reference="9"/>
+      <name>Sloppy Joe&apos;s</name>
+      <description>Our Sloppy Joe&apos;s are made with 100% fresh Canadian Angus beef. Served with fries. A must try! - $8</description>
+      <supply id="27">
+        <supply id="28">
+          <name>Cinnamon Sticks</name>
+          <quantity>50</quantity>
+          <bestBefore id="29">2017-01-31</bestBefore>
+        </supply>
+        <supply reference="5"/>
+        <supply reference="11"/>
       </supply>
     </item>
     <item id="30">
+      <name>Raviolli</name>
+      <description>The dankest raviolli ever. Made with parmaesan straight from the Italian alps, and pasta stuffed with grade A beef - $10</description>
+      <supply id="31">
+        <supply reference="11"/>
+      </supply>
+    </item>
+    <item id="32">
+      <name>Wood Fire Pizza</name>
+      <description>Made in a real wood furnace, our pizza dough is made using a recipe handed down for many generations. Toppings of choice. Comes in 10 or 16&quot; - $10 or $15</description>
+      <supply id="33">
+        <supply reference="15"/>
+        <supply reference="13"/>
+        <supply reference="19"/>
+      </supply>
+    </item>
+    <item id="34">
+      <name>Grilled Cheese</name>
+      <description>Our grilled cheese is made with a blend of old cheddar and Jalepeno Monteray Jack. Made with your choice of whole grain or french bread. Served with sweet potato fries - $7</description>
+      <supply id="35">
+        <supply reference="3"/>
+        <supply reference="11"/>
+      </supply>
+    </item>
+    <item id="36">
       <name>Hot Dog</name>
       <description>Foot long hotdog, made with 100% Canadian beef, served with chili and fries - $6</description>
-      <supply id="31">
-        <supply reference="15"/>
+      <supply id="37">
+        <supply reference="9"/>
+      </supply>
+    </item>
+    <item id="38">
+      <name>Corn dog</name>
+      <description>Fried hot dog on a stick - $3</description>
+      <supply id="39">
+        <supply reference="9"/>
+        <supply reference="13"/>
       </supply>
     </item>
   </items>
-  <orders id="32">
-    <order id="33">
-      <orderNumber>0</orderNumber>
-      <orderDate id="34">2016-11-28</orderDate>
-      <orderTime id="35">20:36:49</orderTime>
-      <item id="36">
-        <item reference="20"/>
-      </item>
-    </order>
-    <order id="37">
-      <orderNumber>1</orderNumber>
-      <orderDate id="38">2016-11-28</orderDate>
-      <orderTime id="39">20:36:58</orderTime>
-      <item id="40">
-        <item reference="28"/>
-      </item>
-    </order>
+  <orders id="40">
     <order id="41">
-      <orderNumber>2</orderNumber>
-      <orderDate id="42">2016-11-28</orderDate>
-      <orderTime id="43">20:37:06</orderTime>
+      <orderNumber>0</orderNumber>
+      <orderDate id="42">2016-11-30</orderDate>
+      <orderTime id="43">14:54:01</orderTime>
       <item id="44">
-        <item reference="22"/>
+        <item reference="38"/>
       </item>
     </order>
     <order id="45">
-      <orderNumber>3</orderNumber>
-      <orderDate id="46">2016-11-28</orderDate>
-      <orderTime id="47">20:37:11</orderTime>
+      <orderNumber>1</orderNumber>
+      <orderDate id="46">2016-11-30</orderDate>
+      <orderTime id="47">14:54:03</orderTime>
       <item id="48">
-        <item reference="26"/>
+        <item reference="30"/>
       </item>
     </order>
     <order id="49">
-      <orderNumber>4</orderNumber>
-      <orderDate id="50">2016-11-28</orderDate>
-      <orderTime id="51">20:37:16</orderTime>
+      <orderNumber>2</orderNumber>
+      <orderDate id="50">2016-11-30</orderDate>
+      <orderTime id="51">14:54:05</orderTime>
       <item id="52">
+        <item reference="38"/>
+      </item>
+    </order>
+    <order id="53">
+      <orderNumber>3</orderNumber>
+      <orderDate id="54">2016-11-30</orderDate>
+      <orderTime id="55">14:54:08</orderTime>
+      <item id="56">
+        <item reference="36"/>
+      </item>
+    </order>
+    <order id="57">
+      <orderNumber>4</orderNumber>
+      <orderDate id="58">2016-11-30</orderDate>
+      <orderTime id="59">14:54:10</orderTime>
+      <item id="60">
+        <item reference="30"/>
+      </item>
+    </order>
+    <order id="61">
+      <orderNumber>5</orderNumber>
+      <orderDate id="62">2016-11-30</orderDate>
+      <orderTime id="63">14:54:12</orderTime>
+      <item id="64">
+        <item reference="30"/>
+      </item>
+    </order>
+    <order id="65">
+      <orderNumber>6</orderNumber>
+      <orderDate id="66">2016-11-30</orderDate>
+      <orderTime id="67">14:54:14</orderTime>
+      <item id="68">
+        <item reference="36"/>
+      </item>
+    </order>
+    <order id="69">
+      <orderNumber>7</orderNumber>
+      <orderDate id="70">2016-11-30</orderDate>
+      <orderTime id="71">14:54:53</orderTime>
+      <item id="72">
+        <item reference="32"/>
+      </item>
+    </order>
+    <order id="73">
+      <orderNumber>8</orderNumber>
+      <orderDate id="74">2016-11-30</orderDate>
+      <orderTime id="75">14:55:06</orderTime>
+      <item id="76">
+        <item reference="32"/>
+      </item>
+    </order>
+    <order id="77">
+      <orderNumber>9</orderNumber>
+      <orderDate id="78">2016-11-30</orderDate>
+      <orderTime id="79">14:55:09</orderTime>
+      <item id="80">
+        <item reference="32"/>
+      </item>
+    </order>
+    <order id="81">
+      <orderNumber>10</orderNumber>
+      <orderDate id="82">2016-11-30</orderDate>
+      <orderTime id="83">14:55:12</orderTime>
+      <item id="84">
+        <item reference="38"/>
+      </item>
+    </order>
+    <order id="85">
+      <orderNumber>11</orderNumber>
+      <orderDate id="86">2016-11-30</orderDate>
+      <orderTime id="87">14:55:14</orderTime>
+      <item id="88">
+        <item reference="38"/>
+      </item>
+    </order>
+    <order id="89">
+      <orderNumber>12</orderNumber>
+      <orderDate id="90">2016-11-30</orderDate>
+      <orderTime id="91">14:55:16</orderTime>
+      <item id="92">
+        <item reference="38"/>
+      </item>
+    </order>
+    <order id="93">
+      <orderNumber>13</orderNumber>
+      <orderDate id="94">2016-11-30</orderDate>
+      <orderTime id="95">14:55:18</orderTime>
+      <item id="96">
+        <item reference="38"/>
+      </item>
+    </order>
+    <order id="97">
+      <orderNumber>14</orderNumber>
+      <orderDate id="98">2016-11-30</orderDate>
+      <orderTime id="99">14:55:22</orderTime>
+      <item id="100">
+        <item reference="38"/>
+      </item>
+    </order>
+    <order id="101">
+      <orderNumber>15</orderNumber>
+      <orderDate id="102">2016-11-30</orderDate>
+      <orderTime id="103">14:58:18</orderTime>
+      <item id="104">
         <item reference="26"/>
       </item>
     </order>
+    <order id="105">
+      <orderNumber>16</orderNumber>
+      <orderDate id="106">2016-11-30</orderDate>
+      <orderTime id="107">15:04:27</orderTime>
+      <item id="108">
+        <item reference="30"/>
+      </item>
+    </order>
+    <order id="109">
+      <orderNumber>17</orderNumber>
+      <orderDate id="110">2016-11-30</orderDate>
+      <orderTime id="111">15:05:44</orderTime>
+      <item id="112">
+        <item reference="26"/>
+      </item>
+    </order>
+    <order id="113">
+      <orderNumber>18</orderNumber>
+      <orderDate id="114">2016-11-30</orderDate>
+      <orderTime id="115">15:05:48</orderTime>
+      <item id="116">
+        <item reference="26"/>
+      </item>
+    </order>
+    <order id="117">
+      <orderNumber>19</orderNumber>
+      <orderDate id="118">2016-11-30</orderDate>
+      <orderTime id="119">15:05:56</orderTime>
+      <item id="120">
+        <item reference="36"/>
+      </item>
+    </order>
+    <order id="121">
+      <orderNumber>20</orderNumber>
+      <orderDate id="122">2016-11-30</orderDate>
+      <orderTime id="123">15:06:01</orderTime>
+      <item id="124">
+        <item reference="32"/>
+      </item>
+    </order>
+    <order id="125">
+      <orderNumber>21</orderNumber>
+      <orderDate id="126">2016-11-30</orderDate>
+      <orderTime id="127">15:06:11</orderTime>
+      <item id="128">
+        <item reference="22"/>
+      </item>
+    </order>
+    <order id="129">
+      <orderNumber>22</orderNumber>
+      <orderDate id="130">2016-11-30</orderDate>
+      <orderTime id="131">17:49:00</orderTime>
+      <item id="132">
+        <item id="133">
+          <name>Popcorn</name>
+          <description>Tasty and fresh with garlic and salt and butter</description>
+          <supply id="134">
+            <supply reference="11"/>
+          </supply>
+        </item>
+      </item>
+    </order>
+    <order id="135">
+      <orderNumber>23</orderNumber>
+      <orderDate id="136">2016-11-30</orderDate>
+      <orderTime id="137">17:49:03</orderTime>
+      <item id="138">
+        <item reference="133"/>
+      </item>
+    </order>
+    <order id="139">
+      <orderNumber>24</orderNumber>
+      <orderDate id="140">2016-11-30</orderDate>
+      <orderTime id="141">17:49:06</orderTime>
+      <item id="142">
+        <item reference="133"/>
+      </item>
+    </order>
+    <order id="143">
+      <orderNumber>25</orderNumber>
+      <orderDate id="144">2016-12-01</orderDate>
+      <orderTime id="145">09:13:58</orderTime>
+      <item id="146">
+        <item reference="22"/>
+      </item>
+    </order>
+    <order id="147">
+      <orderNumber>26</orderNumber>
+      <orderDate id="148">2016-12-01</orderDate>
+      <orderTime id="149">09:14:01</orderTime>
+      <item id="150">
+        <item reference="26"/>
+      </item>
+    </order>
+    <order id="151">
+      <orderNumber>27</orderNumber>
+      <orderDate id="152">2016-12-01</orderDate>
+      <orderTime id="153">09:14:03</orderTime>
+      <item id="154">
+        <item reference="30"/>
+      </item>
+    </order>
+    <order id="155">
+      <orderNumber>28</orderNumber>
+      <orderDate id="156">2016-12-01</orderDate>
+      <orderTime id="157">09:14:05</orderTime>
+      <item id="158">
+        <item reference="32"/>
+      </item>
+    </order>
+    <order id="159">
+      <orderNumber>29</orderNumber>
+      <orderDate id="160">2016-12-01</orderDate>
+      <orderTime id="161">09:14:08</orderTime>
+      <item id="162">
+        <item reference="34"/>
+      </item>
+    </order>
+    <order id="163">
+      <orderNumber>30</orderNumber>
+      <orderDate id="164">2016-12-01</orderDate>
+      <orderTime id="165">09:14:11</orderTime>
+      <item id="166">
+        <item reference="34"/>
+      </item>
+    </order>
+    <order id="167">
+      <orderNumber>31</orderNumber>
+      <orderDate id="168">2016-12-01</orderDate>
+      <orderTime id="169">09:14:14</orderTime>
+      <item id="170">
+        <item reference="36"/>
+      </item>
+    </order>
+    <order id="171">
+      <orderNumber>32</orderNumber>
+      <orderDate id="172">2016-12-01</orderDate>
+      <orderTime id="173">09:14:17</orderTime>
+      <item id="174">
+        <item reference="38"/>
+      </item>
+    </order>
+    <order id="175">
+      <orderNumber>33</orderNumber>
+      <orderDate id="176">2016-12-01</orderDate>
+      <orderTime id="177">09:17:12</orderTime>
+      <item id="178">
+        <item reference="26"/>
+      </item>
+    </order>
+    <order id="179">
+      <orderNumber>34</orderNumber>
+      <orderDate id="180">2016-12-01</orderDate>
+      <orderTime id="181">09:17:36</orderTime>
+      <item id="182">
+        <item reference="26"/>
+      </item>
+    </order>
+    <order id="183">
+      <orderNumber>35</orderNumber>
+      <orderDate id="184">2016-12-01</orderDate>
+      <orderTime id="185">09:17:38</orderTime>
+      <item id="186">
+        <item reference="34"/>
+      </item>
+    </order>
+    <order id="187">
+      <orderNumber>36</orderNumber>
+      <orderDate id="188">2016-12-01</orderDate>
+      <orderTime id="189">09:17:41</orderTime>
+      <item id="190">
+        <item reference="22"/>
+      </item>
+    </order>
+    <order id="191">
+      <orderNumber>37</orderNumber>
+      <orderDate id="192">2016-12-01</orderDate>
+      <orderTime id="193">09:17:51</orderTime>
+      <item id="194">
+        <item reference="22"/>
+      </item>
+    </order>
+    <order id="195">
+      <orderNumber>38</orderNumber>
+      <orderDate id="196">2016-12-01</orderDate>
+      <orderTime id="197">09:17:53</orderTime>
+      <item id="198">
+        <item reference="34"/>
+      </item>
+    </order>
+    <order id="199">
+      <orderNumber>39</orderNumber>
+      <orderDate id="200">2016-12-01</orderDate>
+      <orderTime id="201">09:18:07</orderTime>
+      <item id="202">
+        <item reference="34"/>
+      </item>
+    </order>
+    <order id="203">
+      <orderNumber>40</orderNumber>
+      <orderDate id="204">2016-12-01</orderDate>
+      <orderTime id="205">09:18:12</orderTime>
+      <item id="206">
+        <item reference="34"/>
+      </item>
+    </order>
+    <order id="207">
+      <orderNumber>41</orderNumber>
+      <orderDate id="208">2016-12-01</orderDate>
+      <orderTime id="209">09:26:57</orderTime>
+      <item id="210">
+        <item reference="36"/>
+      </item>
+    </order>
   </orders>
-  <staffs id="53">
-    <staff id="54">
+  <staffs id="211">
+    <staff id="212">
       <name>Jacqueline Taylor</name>
       <role>Cook</role>
     </staff>
-    <staff id="55">
+    <staff id="213">
       <name>Tom Bisset</name>
       <role>Cash</role>
     </staff>
-    <staff id="56">
+    <staff id="214">
       <name>Huck Sasche</name>
       <role>Chef</role>
     </staff>
-    <staff id="57">
+    <staff id="215">
       <name>Alex Torske</name>
       <role>Management</role>
     </staff>
-    <staff id="58">
+    <staff id="216">
       <name>Carlo Mole</name>
       <role>Cook</role>
     </staff>
+    <staff id="217">
+      <name>Jim Carey</name>
+      <role>Cook</role>
+    </staff>
   </staffs>
-  <shifts id="59">
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="60">
-      <startTime id="61">13:00:00</startTime>
-      <endTime id="62">18:00:00</endTime>
-      <shiftDate id="63">2016-11-30</shiftDate>
-      <staff id="64">
-        <staff reference="54"/>
-        <staff reference="57"/>
+  <shifts id="218">
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="219">
+      <startTime id="220">13:00:00</startTime>
+      <endTime id="221">18:00:00</endTime>
+      <shiftDate id="222">2016-11-30</shiftDate>
+      <staff id="223">
+        <staff reference="212"/>
+        <staff reference="215"/>
+        <staff reference="213"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="65">
-      <startTime id="66">11:00:00</startTime>
-      <endTime id="67">15:00:00</endTime>
-      <shiftDate id="68">2016-12-01</shiftDate>
-      <staff id="69">
-        <staff reference="54"/>
-        <staff reference="57"/>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="224">
+      <startTime id="225">11:00:00</startTime>
+      <endTime id="226">15:00:00</endTime>
+      <shiftDate id="227">2016-12-01</shiftDate>
+      <staff id="228">
+        <staff reference="212"/>
+        <staff reference="215"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
-    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="70">
-      <startTime id="71">14:00:00</startTime>
-      <endTime id="72">19:00:00</endTime>
-      <shiftDate id="73">2016-12-02</shiftDate>
-      <staff id="74">
-        <staff reference="54"/>
-        <staff reference="57"/>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="229">
+      <startTime id="230">14:00:00</startTime>
+      <endTime id="231">19:00:00</endTime>
+      <shiftDate id="232">2016-12-02</shiftDate>
+      <staff id="233">
+        <staff reference="212"/>
+        <staff reference="215"/>
+        <staff reference="217"/>
+      </staff>
+    </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="234">
+      <startTime id="235">08:00:00</startTime>
+      <endTime id="236">10:00:00</endTime>
+      <shiftDate id="237">2016-12-16</shiftDate>
+      <staff id="238">
+        <staff reference="217"/>
+        <staff reference="215"/>
+      </staff>
+    </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
+    <ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift id="239">
+      <startTime id="240">10:00:00</startTime>
+      <endTime id="241">15:00:00</endTime>
+      <shiftDate id="242">2016-12-06</shiftDate>
+      <staff id="243">
+        <staff reference="217"/>
       </staff>
     </ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift>
   </shifts>
-  <equipment id="75">
-    <equipment id="76">
-      <name>Spoons</name>
-      <quantity>110</quantity>
-    </equipment>
-    <equipment id="77">
+  <equipment id="244">
+    <equipment id="245">
       <name>Large Forks</name>
       <quantity>100</quantity>
     </equipment>
-    <equipment id="78">
+    <equipment id="246">
       <name>Butter Knife</name>
       <quantity>10</quantity>
     </equipment>

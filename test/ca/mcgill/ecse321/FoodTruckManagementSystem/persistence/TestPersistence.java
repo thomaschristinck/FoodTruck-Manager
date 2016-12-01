@@ -23,7 +23,7 @@ public class TestPersistence {
 		Staff sf1 = new Staff("Martin Picard", "Chef");
 		Staff sf2 = new Staff("Nathalie Vincent", "Manager");
 		
-		//Manage team 
+		//Add to instance of FoodTruckManager
 		fm.addStaff(sf1);
 		fm.addStaff(sf2);
 		

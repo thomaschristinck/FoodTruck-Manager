@@ -1,20 +1,13 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
-
 
 public class MainMenu extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
@@ -40,7 +33,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Global settings and listeners
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		setTitle("Food Truck Manager Main Menu");
+		setTitle("Main Menu");
 		inventoryPageButton.setText("Inventory");
 		staffPageButton.setText("Staff & Scheduling");
 		menuPageButton.setText("Menu & Orders");
@@ -111,7 +104,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 						.addComponent(inventoryPageButton))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(menuPageButton)));
-		this.setLocation(600,400); //value left, top in pixels
+		this.setLocation(600,400); //Value (x,y) in pixels
 		pack();
 	}
 	
