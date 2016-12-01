@@ -88,11 +88,11 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 	/* This method is called from within the constructor to initialize the form*/
 	private void initComponents(){
-		//elements for error message
+		//Elements for error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
 		
-		//elements for return button
+		//Elements for return button
 		returnButton = new JButton();
 		returnButton.setForeground(Color.GRAY);
 		
@@ -179,13 +179,14 @@ private static final long serialVersionUID = -8062635784771606869L;
 		setTitle("Inventory Manager");
 		supplyNameLabel.setText("Supply:");
 		supplyQuantityLabel.setText("Quantity:");
+		supplyQuantityLabel2.setText("Quantity:");
 		supplyBestBeforeLabel.setText("Best Before:");
 		supplyListLabel.setText("Select Supply:");
 		supplyListLabel2.setText("Select Supply:");
 		addSupplyButton.setText("Add Supply");
 		removeSupplyButton.setText("Remove Supply");
-		addSupplyToInventoryButton.setText("Add Supply to Inventory");
-		removeSupplyFromInventoryButton.setText("Remove From Inventory");
+		addSupplyToInventoryButton.setText("Add Quantity");
+		removeSupplyFromInventoryButton.setText("Remove Quantity");
 		
 		equipmentNameLabel.setText("Equipment:");
 		equipmentQuantityLabel.setText("Quantity:");
@@ -195,8 +196,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 		equipmentQuantityLabel2.setText("Quantity:");
 		addEquipmentButton.setText("Add Equipment");
 		removeEquipmentButton.setText("Remove Equipment");
-		addEquipmentToInventoryButton.setText("Add Equipment to Inventory");
-		removeEquipmentFromInventoryButton.setText("Remove From Inventory");
+		addEquipmentToInventoryButton.setText("Add Quantity");
+		removeEquipmentFromInventoryButton.setText("Remove Quantity");
 		
 		addSupplyButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt){
@@ -316,7 +317,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 				{supplyNameLabel, supplyBestBeforeLabel, supplyQuantityLabel});
 		
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] 
-				{addEquipmentButton, removeEquipmentButton, addSupplyButton, removeSupplyButton});
+				{addEquipmentButton, removeEquipmentButton, addSupplyButton, removeSupplyButton, addEquipmentToInventoryButton
+				, removeEquipmentFromInventoryButton, addSupplyToInventoryButton, removeSupplyFromInventoryButton});
 		
 		
 		layout.setVerticalGroup(
@@ -386,7 +388,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			selectedSupply = -1;
 			supplyList.setSelectedIndex(selectedSupply);
 			
-			//Supply list 1
+			//Supply list 
 			supplyList2.removeAllItems();
 			Iterator<Supply> suIt = fm.getSupplies().iterator();
 			Integer i = 0;
@@ -444,7 +446,8 @@ private static final long serialVersionUID = -8062635784771606869L;
 	}
 	
 	/*
-	 * Listed below are methods that are called when a button is pressed. The appropriate method in the Supply
+	 * Listed below are methods that are called when a button is pressed. The appropriate method in the SupplyController
+	 * is called with input from the user
 	 * 
 	 */
 	
