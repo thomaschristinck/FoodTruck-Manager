@@ -131,6 +131,7 @@ public class StaffController {
 		fm.addShift(shift);
 		PersistenceXStream.saveToXMLwithXStream(fm);
 	}
+	
 	public void viewSchedule(Staff staff, Date startDate, Date endDate) throws InvalidInputException{
 		String error = " ";
 		if(staff == null)

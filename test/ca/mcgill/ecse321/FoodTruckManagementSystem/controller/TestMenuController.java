@@ -29,7 +29,7 @@ public class TestMenuController {
 
 	@After
 	public void tearDown() throws Exception {
-		//clear all registrations
+		//Clear the FoodTruckManager
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		fm.delete();
 	}
@@ -46,7 +46,7 @@ public class TestMenuController {
 		try {
 			mc.createItem(name, description);
 		} catch (InvalidInputException e) {
-			//check no error occurred
+			//Check no error occurred
 			fail();
 		}
 		
@@ -144,7 +144,6 @@ public class TestMenuController {
 		try {
 			mc.removeItem(item);
 		} catch (InvalidInputException e) {
-			//Get error
 			error = e.getMessage();
 		}
 		
@@ -185,7 +184,7 @@ public class TestMenuController {
 		try{
 			mc.addSupply(supply, item);
 		} catch (InvalidInputException e){
-			//check no error
+			//Check no error
 			fail();
 		}
 		
@@ -230,7 +229,7 @@ public class TestMenuController {
 		try{
 			mc.addSupply(supply, item);
 		} catch (InvalidInputException e){
-			//check no error
+			//Check no error
 			fail();
 		}
 		try{
@@ -394,6 +393,53 @@ public class TestMenuController {
 		//Check file contents
 		assertEquals(1, fm2.getOrders().size());
 		assertEquals(item.getName(), fm2.getOrder(0).getItem(0).getName());
+	}
+	
+	@Test
+	public void testMakeOrderSupplyStockEmpty(){
+		FoodTruckManager fm = FoodTruckManager.getInstance();
+		assertEquals(0, fm.getOrders().size());
+	
+		String name = "Mashed Potatos";
+		String description = "Generic description";
+		
+		Item item = new Item(name, description);
+		
+		String supplyName = "Yellow Potatos";
+		int quantity = 0;
+
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.OCTOBER,30,9,00,0);
+		Date bestBeforeDate = new Date(c.getTimeInMillis());
+		
+		Supply supply = new Supply(supplyName, quantity, bestBeforeDate);
+		item.addSupply(supply);
+		fm.addItem(item);
+		assertEquals(1, fm.getItems().size());
+		assertEquals(1, fm.getItem(0).getSupply().size());
+		
+		PersistenceXStream.saveToXMLwithXStream(fm);
+		String error = null;
+		MenuController mc = new MenuController();
+		try{
+			mc.makeOrder(item);
+		} catch (InvalidInputException e){
+			error = e.getMessage();
+		}
+		
+		//Check model in memory
+		assertEquals(0, fm.getOrders().size());
+		assertEquals(item.getName(), fm.getItem(0).getName());
+		assertEquals(item.getDescription(), fm.getItem(0).getDescription());
+		assertEquals(error, "Cannot make order! " + fm.getItem(0).getSupply(0).getName() + " out of stock!");
+				
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+				
+		//Check file contents
+		assertEquals(0, fm2.getOrders().size());
+		assertEquals(item.getName(), fm2.getItem(0).getName());
+		assertEquals(item.getDescription(), fm2.getItem(0).getDescription());
+		assertEquals(error, "Cannot make order! " + fm2.getItem(0).getSupply(0).getName() + " out of stock!");			
 	}
 	
 	@Test
