@@ -1,4 +1,4 @@
-/*package ca.mcgill.ecse321.FoodTruckManagementSystem.controller;
+package ca.mcgill.ecse321.FoodTruckManagementSystem.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStream;
 
 public class TestMenuController {
@@ -39,17 +40,11 @@ public class TestMenuController {
 		assertEquals(0, fm.getItems().size());
 		
 		String name = "Canned Black Beans, 1 kg";
-		String quantity = "10";
-		int quantityInt = Integer.parseInt(quantity);
-		
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.OCTOBER,30,9,00,0);
-		Date bestBeforeDate = new Date(c.getTimeInMillis());
-		
+		String description = "Generic description";
 		
 		MenuController mc = new MenuController();
 		try {
-			mc.createItem(name, quantity);
+			mc.createItem(name, description);
 		} catch (InvalidInputException e) {
 			//check no error occurred
 			fail();
@@ -60,7 +55,7 @@ public class TestMenuController {
 		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
 		
 		//check file contents
-		checkResultItem(name, quantityInt, bestBeforeDate, fm2);
+		checkResultItem(name, description, fm2);
 	}
 	
 	@Test
@@ -105,7 +100,7 @@ public class TestMenuController {
 		}
 		
 		//Check error message
-		assertEquals("Item name cannot be empty! Not a valid item quantity! Best before date must be entered!", error);
+		assertEquals("Item name cannot be empty! Item description cannot be empty!", error);
 		
 		//Check for no change in memory
 		assertEquals(0, fm.getItems().size());
@@ -167,242 +162,363 @@ public class TestMenuController {
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		assertEquals(0, fm.getItems().size());
 	
+		String supplyName = "Yellow Potatos";
+		int quantity = 15;
+
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.OCTOBER,30,9,00,0);
+		Date bestBeforeDate = new Date(c.getTimeInMillis());
+		
+		Supply supply = new Supply(supplyName, quantity, bestBeforeDate);
+		
 		String name = "Mashed Potatos";
 		String description = "Generic description";
 		
 		Item item = new Item(name, description);
-		fm.createItem(item);
-		String addQuantity = "10";
+		fm.addItem(item);
+		fm.addSupply(supply);
+		
 		assertEquals(1, fm.getItems().size());
+		assertEquals(1, fm.getSupplies().size());
 		
 		MenuController mc = new MenuController();
 		try{
-			mc.addToItemInventory(item, addQuantity);
+			mc.addSupply(supply, item);
 		} catch (InvalidInputException e){
 			//check no error
 			fail();
 		}
-		//check model in memory
-		checkResultAddItemToInventory(item, quantity, addQuantity, fm);
+		
+		//Check model in memory
+		checkResultItem(name, description, fm);
+		checkResultSupply(supplyName, quantity, bestBeforeDate, fm);
+		assertEquals(supply, fm.getItem(0).getSupply(0));
+		
 		
 		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
 		
-		//check file contents
-		checkResultAddItemToInventory(item, quantity, addQuantity, fm2);
+		//Check file contents
+		checkResultItem(name, description, fm2);
+		checkResultSupply(supplyName, quantity, bestBeforeDate, fm2);
 	}
 	
 	@Test
-	public void testAddNullItemToInventory(){
+	public void testSupplyAlreadyAddedToItem(){
 		FoodTruckManager fm = FoodTruckManager.getInstance();
 		assertEquals(0, fm.getItems().size());
+	
+		String supplyName = "Yellow Potatos";
+		int quantity = 15;
+
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.OCTOBER,30,9,00,0);
+		Date bestBeforeDate = new Date(c.getTimeInMillis());
+		
+		Supply supply = new Supply(supplyName, quantity, bestBeforeDate);
+		
+		String name = "Mashed Potatos";
+		String description = "Generic description";
+		
+		Item item = new Item(name, description);
+		fm.addItem(item);
+		fm.addSupply(supply);
+		
+		assertEquals(1, fm.getItems().size());
+		assertEquals(1, fm.getSupplies().size());
+		String error = null;
+		MenuController mc = new MenuController();
+		try{
+			mc.addSupply(supply, item);
+		} catch (InvalidInputException e){
+			//check no error
+			fail();
+		}
+		try{
+			mc.addSupply(supply, item);
+		} catch (InvalidInputException e){
+			//Check error
+			error = e.getMessage();
+		}
+		
+		//Check model in memory
+		checkResultItem(name, description, fm);
+		checkResultSupply(supplyName, quantity, bestBeforeDate, fm);
+		assertEquals(supply.getName(), fm.getItem(0).getSupply(0).getName());
+		assertEquals(supply.getQuantity(), fm.getItem(0).getSupply(0).getQuantity());
+		assertEquals(supply.getBestBefore().toString(), fm.getItem(0).getSupply(0).getBestBefore().toString());
+		assertEquals(error, "Item already has supply listed!");
+		
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+		
+		//Check file contents
+		checkResultItem(name, description, fm2);
+		checkResultSupply(supplyName, quantity, bestBeforeDate, fm2);
+		assertEquals(supply.getName(), fm2.getItem(0).getSupply(0).getName());
+		assertEquals(supply.getQuantity(), fm2.getItem(0).getSupply(0).getQuantity());
+		assertEquals(supply.getBestBefore().toString(), fm2.getItem(0).getSupply(0).getBestBefore().toString());
+		assertEquals(error, "Item already has supply listed!");
+	}
+	
+	@Test
+	public void testAddNullSupplyToItem(){
+		FoodTruckManager fm = FoodTruckManager.getInstance();
+		assertEquals(0, fm.getItems().size());
+		
+		String name = "Mashed Potatos";
+		String description = "Generic description";
+		
+		Item item = new Item(name, description);
+		Supply supply = null;
+		
+		MenuController mc = new MenuController();
+		String error = null;
+		try{
+			mc.addSupply(supply, item);
+		} catch (InvalidInputException e){
+			error = e.getMessage();
+		}
+		
+		//Check error
+		assertEquals("Supply cannot be empty!", error);
+				
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+		
+		//Check model in memory 
+		assertEquals(0, fm2.getItem(0).getSupply().size());
+	}
+	
+	@Test
+	public void testRemoveSupplyFromItem(){
+		FoodTruckManager fm = FoodTruckManager.getInstance();
+		assertEquals(0, fm.getItems().size());
+	
+		String name = "Mashed Potatos";
+		String description = "Generic description";
+		
+		String supplyName = "Yellow Potatos";
+		int quantity = 15;
+
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.OCTOBER,30,9,00,0);
+		Date bestBeforeDate = new Date(c.getTimeInMillis());
+		
+		Supply supply = new Supply(supplyName, quantity, bestBeforeDate);
+		Item item = new Item(name, description);
+		
+		fm.addItem(item);
+		fm.addSupply(supply);
+		assertEquals(1, fm.getItems().size());
+		assertEquals(1, fm.getSupplies().size());
+		
+		MenuController mc = new MenuController();
+		try{
+			mc.addSupply(supply, item);
+		} catch (InvalidInputException e){
+			//check no error
+			fail();
+		}
+		try{
+			mc.removeSupply(supply, item);
+		} catch (InvalidInputException e){
+			//check no error
+			fail();
+		}
+		//Check model in memory
+		assertEquals(0, fm.getItem(0).getSupply().size());
+		
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+		
+		//Check file contents
+		assertEquals(0, fm2.getItem(0).getSupply().size());
+	}
+	
+	@Test
+	public void testRemoveNullSupplyFromItem(){
+		FoodTruckManager fm = FoodTruckManager.getInstance();
+		assertEquals(0, fm.getItems().size());
+		
+		String name = "Mashed Potatos";
+		String description = "Generic description";
+		
+		Item item = new Item(name, description);
+		Supply supply = null;
+		
+		MenuController mc = new MenuController();
+		String error = null;
+		fm.addItem(item);
+		PersistenceXStream.saveToXMLwithXStream(fm);
+		assertEquals(item, fm.getItem(0));
+		assertEquals(0, fm.getItem(0).getSupply().size());
+		assertEquals(1, fm.getItems().size());
+		
+		try{
+			mc.removeSupply(supply, item);
+		} catch (InvalidInputException e){
+			error = e.getMessage();
+		}
+		
+		//Check error
+		assertEquals("Supply cannot be empty!", error);
+		
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+				
+		//Check model in memory 
+		assertEquals(1, fm2.getItems().size());
+	}
+	
+	@Test
+	public void testMakeOrder(){
+		FoodTruckManager fm = FoodTruckManager.getInstance();
+		assertEquals(0, fm.getOrders().size());
+	
+		String name = "Mashed Potatos";
+		String description = "Generic description";
+		
+		Item item = new Item(name, description);
+		fm.addItem(item);
+		assertEquals(1, fm.getItems().size());
+		
+		MenuController mc = new MenuController();
+		try{
+			mc.makeOrder(item);
+		} catch (InvalidInputException e){
+			fail();
+		}
+		
+		//Check model in memory
+		assertEquals(1, fm.getOrders().size());
+		assertEquals(item, fm.getOrder(0).getItem(0));
+				
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+				
+		//Check file contents
+		assertEquals(1, fm2.getOrders().size());
+		assertEquals(item.getName(), fm2.getOrder(0).getItem(0).getName());
+	}
+	
+	@Test
+	public void testMakeNullOrder(){
+		FoodTruckManager fm = FoodTruckManager.getInstance();
+		assertEquals(0, fm.getOrders().size());
 		
 		Item item = null;
-		String addQuantity = "10";
+		assertEquals(0, fm.getItems().size());
 		
 		MenuController mc = new MenuController();
 		String error = null;
 		try{
-			mc.addToItemInventory(item, addQuantity);
+			mc.makeOrder(item);
 		} catch (InvalidInputException e){
 			error = e.getMessage();
 		}
 		
 		//Check error
-		assertEquals("Must select item!", error);
-				
-		//Check model in memory 
-		assertEquals(0, fm.getItems().size());
-	}
-	
-	@Test
-	public void testNegativeAddItemToInventory(){
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		assertEquals(0, fm.getItems().size());
-	
-		String name = "Potato Bag, 10 kg";
-		int quantity = 15;
-
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.OCTOBER,30,9,00,0);
-		Date bestBeforeDate = new Date(c.getTimeInMillis());
-		
-		Item item = new Item(name, description);
-		fm.createItem(item);
-		String addQuantity = "-20";
-		assertEquals(1, fm.getItems().size());
-		
-		String error = null;
-		MenuController mc = new MenuController();
-		try{
-			mc.addToItemInventory(item, addQuantity);
-		} catch (InvalidInputException e){
-			error = e.getMessage();
-		}
-		
-		//Check error
-		assertEquals("Item must have a quantity greater than 0 to be added!", error);
-		
-		//Check model in memory 
-		assertEquals(1, fm.getItems().size());
-		assertEquals(quantity, fm.getItem(0).getQuantity());
-	}
-	
-	@Test
-	public void testRemoveItemFromInventory(){
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		assertEquals(0, fm.getItems().size());
-	
-		String name = "Potato Bag, 10 kg";
-		int quantity = 15;
-
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.OCTOBER,30,9,00,0);
-		Date bestBeforeDate = new Date(c.getTimeInMillis());
-		
-		Item item = new Item(name, description);
-		fm.createItem(item);
-		String removeQuantity = "10";
-		assertEquals(1, fm.getItems().size());
-		
-		MenuController mc = new MenuController();
-		try{
-			mc.removeFromItemInventory(item, removeQuantity);
-		} catch (InvalidInputException e){
-			//check no error
-			fail();
-		}
-		//check model in memory
-		checkResultRemoveItemFromInventory(item, quantity, removeQuantity, fm);
+		assertEquals("Must select item to add!", error);
 		
 		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
-		
-		//check file contents
-		checkResultRemoveItemFromInventory(item, quantity, removeQuantity, fm2);
-	}
-	
-	@Test
-	public void testRemoveNullItemFromInventory(){
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		assertEquals(0, fm.getItems().size());
-		
-		String name = "Potato Bag, 10 kg";
-		int quantity = 15;
-
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.OCTOBER,30,9,00,0);
-		Date bestBeforeDate = new Date(c.getTimeInMillis());
-		
-		Item supply1 = new Item(name, description);
-		fm.createItem(supply1);
-		assertEquals(1, fm.getItems().size());
-		
-		Item supply2 = null;
-		String error = null;
-		String removeQuantity = "10";
-		assertEquals(1, fm.getItems().size());
-		
-		MenuController mc = new MenuController();
-		try{
-			mc.removeFromItemInventory(supply2, removeQuantity);
-		} catch (InvalidInputException e){
-			error = e.getMessage();
-		}
-		
-		//Check error
-		assertEquals("Must select item!", error);
 				
 		//Check model in memory 
-		assertEquals(1, fm.getItems().size());
+		assertEquals(0, fm2.getOrders().size());
 	}
 	
 	@Test
-	public void testExcessiveRemoveItemFromInventory(){
+	public void testRemoveOrder(){
 		FoodTruckManager fm = FoodTruckManager.getInstance();
-		assertEquals(0, fm.getItems().size());
+		assertEquals(0, fm.getOrders().size());
 	
-		String name = "Potato Bag, 10 kg";
-		int quantity = 15;
-
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.OCTOBER,30,9,00,0);
-		Date bestBeforeDate = new Date(c.getTimeInMillis());
+		String name = "Mashed Potatos";
+		String description = "Generic description";
 		
 		Item item = new Item(name, description);
-		fm.createItem(item);
-		String removeQuantity = "20";
+		fm.addItem(item);
 		assertEquals(1, fm.getItems().size());
 		
-		String error = null;
 		MenuController mc = new MenuController();
+		try {
+			mc.makeOrder(item);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		assertEquals(item.getName(), fm.getOrder(0).getItem(0).getName());
 		try{
-			mc.removeFromItemInventory(item, removeQuantity);
+			mc.removeOrder();
+		} catch (InvalidInputException e){
+			fail();
+		}
+		
+		//Check model in memory
+		assertEquals(0, fm.getOrders().size());
+		assertEquals(item, fm.getItem(0));
+				
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+				
+		//Check file contents
+		assertEquals(0, fm2.getOrders().size());
+		assertEquals(item.getName(), fm2.getItem(0).getName());
+	}
+	
+	@Test
+	public void testRemoveExcessOrder(){
+		FoodTruckManager fm = FoodTruckManager.getInstance();
+		assertEquals(0, fm.getOrders().size());
+	
+		String name = "Mashed Potatos";
+		String description = "Generic description";
+		
+		Item item = new Item(name, description);
+		fm.addItem(item);
+		assertEquals(1, fm.getItems().size());
+		
+		MenuController mc = new MenuController();
+		try {
+			mc.makeOrder(item);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		assertEquals(item.getName(), fm.getOrder(0).getItem(0).getName());
+		try{
+			mc.removeOrder();
+		} catch (InvalidInputException e){
+			fail();
+		}
+		//Check model in memory. Then remove excess item from order queue
+		assertEquals(0, fm.getOrders().size());
+		assertEquals(item, fm.getItem(0));
+		String error = null;
+		try{
+			mc.removeOrder();
 		} catch (InvalidInputException e){
 			error = e.getMessage();
 		}
 		
-		//Check error
-		assertEquals("Cannot have less than zero supplies!", error);
-		
-		//Check model in memory 
-		assertEquals(1, fm.getItems().size());
-		assertEquals(quantity, fm.getItem(0).getQuantity());
-	}
-	
-	@Test
-	public void testNegativeRemoveItemFromInventory(){
-		FoodTruckManager fm = FoodTruckManager.getInstance();
-		assertEquals(0, fm.getItems().size());
-	
-		String name = "Potato Bag, 10 kg";
-		int quantity = 15;
-
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.OCTOBER,30,9,00,0);
-		Date bestBeforeDate = new Date(c.getTimeInMillis());
-		
-		Item item = new Item(name, description);
-		fm.createItem(item);
-		String removeQuantity = "-20";
-		assertEquals(1, fm.getItems().size());
-		
-		String error = null;
-		MenuController mc = new MenuController();
-		try{
-			mc.removeFromItemInventory(item, removeQuantity);
-		} catch (InvalidInputException e){
-			error = e.getMessage();
-		}
-		
-		//Check error
-		assertEquals("Item must have a quantity greater than 0 to be removed!", error);
-		
-		//Check model in memory 
-		assertEquals(1, fm.getItems().size());
-		assertEquals(quantity, fm.getItem(0).getQuantity());
+		//Check model in memory
+		assertEquals(error, "No orders have been made!");
+		assertEquals(0, fm.getOrders().size());
+				
+		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
+				
+		//Check file contents
+		assertEquals(error, "No orders have been made!");
+		assertEquals(0, fm2.getOrders().size());
+				
 	}
 	
 	
-	private void checkResultItem(String name, int quantity, Date bestBefore, FoodTruckManager fm2) 
+	private void checkResultItem(String name, String description, FoodTruckManager fm2) 
 	{
 		
 		assertEquals(1, fm2.getItems().size());
 		assertEquals(name, fm2.getItem(0).getName());
-		assertEquals(quantity, fm2.getItem(0).getQuantity());
-		assertEquals(bestBefore.toString(), fm2.getItem(0).getBestBefore().toString());
+		assertEquals(description, fm2.getItem(0).getDescription());
 	}
 	
-	private void checkResultAddItemToInventory(Item item, int quantity, String addQuantity, FoodTruckManager fm2){
-		int addQuantityInt = Integer.parseInt(addQuantity);
-		assertEquals(1, fm2.getItems().size());
-		assertEquals(quantity + addQuantityInt, fm2.getItem(0).getQuantity());
+	private void checkResultSupply(String name, int quantity, Date bestBefore, FoodTruckManager fm2) 
+	{
+		assertEquals(1, fm2.getSupplies().size());
+		assertEquals(name, fm2.getSupply(0).getName());
+		assertEquals(quantity, fm2.getSupply(0).getQuantity());
+		assertEquals(bestBefore.toString(), fm2.getSupply(0).getBestBefore().toString());
 	}
-	
-	private void checkResultRemoveItemFromInventory(Item item, int quantity, String removeQuantity, FoodTruckManager fm2){
-		int removeQuantityInt = Integer.parseInt(removeQuantity);
-		assertEquals(1, fm2.getItems().size());
-		assertEquals(quantity - removeQuantityInt, fm2.getItem(0).getQuantity());
-	}
-	
 }
 
-*/
+
