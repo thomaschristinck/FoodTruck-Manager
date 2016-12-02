@@ -29,7 +29,15 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Equipment;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 
-
+/**
+ * The inventory page is accessed through the main menu. The layout can be divided into supplies
+ * and equipment, with supply-related features on the left of the screen and equipment-related 
+ * features on the right. The functionality that is implemented by a user-initiated even (i.e. pressing
+ * a button) are defined by the equipmentController and supplyController classes.
+ * 
+ * @author thomaschristinck
+ *
+ */
 public class InventoryPage extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
 	//UI element for return
@@ -68,23 +76,23 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private JLabel equipmentListLabel2;
 	private JButton viewEquipmentListButton;
 	
-	//Data elements for both equipment and supplies
+	//Data elements for both equipment and supply lists
 	private String error = null;
 	private Integer selectedSupply = -1;
-	private HashMap<Integer, Supply> supply;
 	private Integer selectedSupply2 = -1;
-	private Integer selectedEquipment = -1;
-	private HashMap<Integer, Equipment> equipment;
-	private Integer selectedEquipment2 = -1;
+	private HashMap<Integer, Supply> supply;
 
+	private Integer selectedEquipment = -1;
+	private Integer selectedEquipment2 = -1;
+	private HashMap<Integer, Equipment> equipment;
 	
-	//Creates new form EventRegistrationPage 
+	//Creates new InventoryPage
 	public InventoryPage(){
 		initComponents();
 		refreshData();
 	}
 
-	// This method is called from within the constructor to initialize the form
+	//This method is called from within the constructor to initialize the form
 	private void initComponents(){
 		//Elements for error message
 		errorMessage = new JLabel();
@@ -94,7 +102,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		returnButton = new JButton();
 		returnButton.setForeground(Color.GRAY);
 		
-		//Elements for supply list
+		//Elements for supply lists
 		supplyList = new JComboBox<String>(new String[0]);
 		supplyList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
@@ -114,7 +122,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		supplyListLabel2 = new JLabel();
 		
 		
-		//Elements for equipment list
+		//Elements for equipment lists
 		equipmentList = new JComboBox<String>(new String[0]);
 		equipmentList.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(java.awt.event.ActionEvent evt){
@@ -397,7 +405,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 			selectedSupply = -1;
 			supplyList.setSelectedIndex(selectedSupply);
 			
-			//Supply list 
+			//Supply list 2
 			supplyList2.removeAllItems();
 			Iterator<Supply> suIt = fm.getSupplies().iterator();
 			Integer i = 0;
@@ -454,7 +462,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 	
 	/*
 	 * Listed below are methods that are called when a button is pressed. The appropriate method in the SupplyController
-	 * is called with input from the user
+	 * or equipmentController class is called with input from the user
 	 * 
 	 */
 	
