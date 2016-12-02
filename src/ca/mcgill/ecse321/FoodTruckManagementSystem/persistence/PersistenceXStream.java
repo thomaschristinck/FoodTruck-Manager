@@ -1,9 +1,12 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.persistence;
-
 import java.io.FileReader;
 import java.io.FileWriter; 
 import java.io.IOException;
 import com.thoughtworks.xstream.XStream;
+/**
+ * Reused from Assignment one. Code provided on myCourses.
+ *
+ */
 public class PersistenceXStream {
 	private static XStream xstream = new XStream(); 
 	public static String filename = "data.xml";

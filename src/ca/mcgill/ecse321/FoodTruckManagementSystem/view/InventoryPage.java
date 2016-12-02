@@ -78,13 +78,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private Integer selectedEquipment2 = -1;
 
 	
-	/*Creates new form EventRegistrationPage */
+	//Creates new form EventRegistrationPage 
 	public InventoryPage(){
 		initComponents();
 		refreshData();
 	}
 
-	/* This method is called from within the constructor to initialize the form*/
+	// This method is called from within the constructor to initialize the form
 	private void initComponents(){
 		//Elements for error message
 		errorMessage = new JLabel();
@@ -595,6 +595,12 @@ private static final long serialVersionUID = -8062635784771606869L;
 		refreshData();
 	}
 	
+	/**
+	 * This is a method that converts the Best-Before Date to a more readable form. 
+	 * 
+	 * @param bestBefore
+	 * @return
+	 */
 	public String bestBeforeToString(Date bestBefore){
 		String date = bestBefore.toString();
 		String[] yearMonthDay = date.split("-");

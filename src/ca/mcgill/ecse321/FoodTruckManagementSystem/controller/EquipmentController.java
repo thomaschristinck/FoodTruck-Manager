@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Equipment;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
@@ -16,7 +15,7 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStrea
  * 
  *  
  * @author thomaschristinck
- *
+ * @version 1.0
  */
 
 public class EquipmentController {
@@ -169,8 +168,8 @@ public class EquipmentController {
 			 // List all equipment in food truck inventory
 			 for(int i = 0; i < fm.getEquipment().size(); i++){
 				 int index = i + 1;
-				 String shift = String.format("%-22s%-22s%-22s\n", index + ". " + fm.getEquipment(i).getName(), fm.getEquipment(i).getQuantity());
-				 out.write(shift); 
+				 String equipmentList = String.format("%-22s%-22s\n", index + ". " + fm.getEquipment(i).getName(), fm.getEquipment(i).getQuantity());
+				 out.write(equipmentList); 
 				 out.newLine();
 				 out.newLine();
 			 }

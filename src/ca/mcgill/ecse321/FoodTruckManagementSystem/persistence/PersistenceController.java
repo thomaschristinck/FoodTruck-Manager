@@ -10,7 +10,16 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 
-public class PersistenceStaffController {
+/**
+ * The persistence controller is responsible for initializing XStream (setting the filename 
+ * and class aliases), and initializing the FoodTruckManager class by loading it with all objects
+ * from memory (i.e. the .xml file we save to).
+ * 
+ * @author thomaschristinck
+ * @version 1.0
+ *
+ */
+public class PersistenceController {
 	private static void initializeXStream(){
 		PersistenceXStream.setFilename("foodtruckmanager.xml");
 		PersistenceXStream.setAlias("staff", Staff.class);
@@ -18,18 +27,19 @@ public class PersistenceStaffController {
 		PersistenceXStream.setAlias("equipment", Equipment.class);
 		PersistenceXStream.setAlias("supply", Supply.class);
 		PersistenceXStream.setAlias("order", Order.class);
-		PersistenceXStream.setAlias("item", Item.class);
-		
-		
+		PersistenceXStream.setAlias("item", Item.class);	
 	}
 	
-	public static void loadStaffControllerModel() {
+	public static void loadSupplyControllerModel() {
 		FoodTruckManager fm = FoodTruckManager.getInstance();
-		PersistenceStaffController.initializeXStream();
+		PersistenceController.initializeXStream();
 		FoodTruckManager fm2 = (FoodTruckManager) PersistenceXStream.loadFromXMLwithXStream();
 		if (fm2 != null){
-			//unfortunately, this creates a second copy of the RegistrationManager object though it is a singleton,
-			//copy loaded model into singleton instance, as it will be used throughout the application
+			/**
+			 * This creates a second copy of the RegistrationManager object though it is a singleton,
+			 * copy loaded model into singleton instance, as it will be used throughout the application
+			 */
+			
 			Iterator<Staff> sIt = fm2.getStaffs().iterator();
 			while(sIt.hasNext())
 				fm.addStaff(sIt.next());
