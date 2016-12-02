@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.FoodTruckManagementSystem.controller;
 
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
-import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStream;
 
@@ -27,6 +26,7 @@ import java.util.Calendar;
 public class SupplyController {
 	public SupplyController(){
 	}
+	
 	/**
 	 * The createSupply method creates a supply on the food truck inventory supply list. Note the default 
 	 * quantity is zero. The manager then has to add/remove an appropriate quantity. If the supply's best before 
@@ -126,14 +126,14 @@ public class SupplyController {
 			PersistenceXStream.saveToXMLwithXStream(fm);
 	}
 	
-/**
- * The removeSupplyFromInventory method is similar to the above, only instead of adding a specified quantity to 
- * the food truck inventory, this method will remove the quantity from the inventory.
- * 
- * @param supply
- * @param quantity
- * @throws InvalidInputException
- */
+	/**
+	 * The removeSupplyFromInventory method is similar to the above, only instead of adding a specified quantity to 
+	 * the food truck inventory, this method will remove the quantity from the inventory.
+	 * 
+	 *  @param supply
+	 *  @param quantity
+	 *  @throws InvalidInputException
+	 *    */
 	public void removeFromSupplyInventory(Supply supply, String quantity) throws InvalidInputException{
 		String error = "";
 		if (supply == null)
@@ -165,6 +165,7 @@ public class SupplyController {
 	/**
 	 * The viewSupplyList method simply displays a list of all supplies in the food truck inventory, as
 	 * well as their quantities and best-before dates.
+	 * 
 	 * @throws InvalidInputException
 	 */
 	public void viewSupplyList() throws InvalidInputException{
@@ -194,8 +195,8 @@ public class SupplyController {
 				 int index = i + 1;
 				 SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 				 String formattedDate = formatter.format(fm.getSupply(i).getBestBefore());
-				 String shift = String.format("%-22s%-22s%-22s\n", index + ". " + fm.getSupply(i).getName(), fm.getSupply(i).getQuantity(), formattedDate);
-				 out.write(shift); 
+				 String supplyList = String.format("%-22s%-22s%-22s\n", index + ". " + fm.getSupply(i).getName(), fm.getSupply(i).getQuantity(), formattedDate);
+				 out.write(supplyList); 
 				 out.newLine();
 				 out.newLine();
 			 }
