@@ -33,7 +33,16 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.InvalidInputException;
 
-
+/**
+ * The staff page is accessed through the main menu. The layout can be divided into staff (adding/removing staff, 
+ * adding/removing a shift to/from a staff) and shifts (adding/removing a shift), with more staff-related features on 
+ * the left of the screen and shift-related features on the right. The functionality that is implemented by a user-initiated 
+ * even (i.e. pressing a button) are defined 
+ * by the staffController class.
+ * 
+ * @author thomaschristinck
+ *
+ */
 public class StaffPage extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
 	
@@ -76,7 +85,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private Integer selectedShift = -1;
 	private HashMap<Integer, Shift> shift;
 	
-	/*Creates new form EventRegistrationPage */
+	//Creates new StaffPage
 	public StaffPage(){
 		initComponents();
 		refreshData();
@@ -84,7 +93,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 	/* This method is called from within the constructor to initialize the form*/
 	private void initComponents(){
-		//elements for error message
+		//Elements for error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
 		
@@ -179,7 +188,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		staffListLabel2 = new JLabel();
 		
 		
-		//global settings and listeners
+		//Global settings and listeners
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Staff Manager");
 		returnButton.setText("Main Menu");
@@ -251,7 +260,12 @@ private static final long serialVersionUID = -8062635784771606869L;
 			}
 		});
 	
-		//layout
+		/**
+		 * Layout: First we have the Horizontal Layout (Components listed top to bottom, parallel groups
+		 * listed from left to right), and then the Vertical Layout (Components listed left to right, parallel
+		 * groups from top to bottom). The location of the content pane is set and the window is sized using 
+		 * pack().
+		 */
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setAutoCreateGaps(true);
@@ -350,7 +364,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 	
 	private void refreshData(){
 		FoodTruckManager fm = FoodTruckManager.getInstance();
-		//error
+		//Set error message if this is one
 		errorMessage.setText(error);
 		if (error == null || error.length() == 0){
 			//Staff list
@@ -414,6 +428,11 @@ private static final long serialVersionUID = -8062635784771606869L;
 		pack();
 		
 	}
+	
+	/*
+	 * Listed below are methods that are called when a button is pressed. The appropriate method in the staffController
+	 * class is called with input from the user
+	 */
 	private void removeStaffButtonActionPerformed(java.awt.event.ActionEvent evt){
 		//Call the controller
 		StaffController sc = new StaffController();
@@ -473,9 +492,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 	}
 	private void addShiftToStaffButtonActionPerformed(java.awt.event.ActionEvent evt){
 		//Call the controller
-		StaffController sc = new StaffController();
-		//JSpinner returns date and time, force the same date for start/end time so only times differ
-		
+		StaffController sc = new StaffController();		
 		error = null;
 		try {
 			sc.addShiftToStaff(staff.get(selectedStaff), shift.get(selectedShift));
@@ -488,8 +505,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private void removeShiftFromStaffButtonActionPerformed(java.awt.event.ActionEvent evt){
 		//Call the controller
 		StaffController sc = new StaffController();
-		//JSpinner returns date and time, force the same date for start/end time so only times differ
-		
 		error = null;
 		try {
 			sc.removeShiftFromStaff(staff.get(selectedStaff), shift.get(selectedShift));
@@ -503,7 +518,6 @@ private static final long serialVersionUID = -8062635784771606869L;
 	private void generateSchedButtonActionPerformed(java.awt.event.ActionEvent evt){
 		//Call the controller
 		StaffController sc = new StaffController();
-		
 		error = null;
 		try {
 			sc.viewSchedule(staff.get(selectedStaff), (java.sql.Date) startDatePicker.getModel().getValue(), (java.sql.Date) endDatePicker.getModel().getValue());
@@ -513,6 +527,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 		//Update visuals
 		refreshData();
 	}
+	
+	/**
+	 * The shiftToString method converts a shift (date) to a more readable format.
+	 * 
+	 * @param shift
+	 * @return
+	 */
 	private String shiftToString(Shift shift){
 		String date = shift.getShiftDate().toString();
 		String[] yearMonthDay = date.split("-");

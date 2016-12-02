@@ -22,7 +22,15 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
 
-
+/**
+ * The menu page is accessed through the main menu. The layout can be divided into items (adding/removing an item, 
+ * adding/removing a supply to/from an item) and orders, with item-related features on the left of the screen and order-related
+ * features on the right. The functionality that is implemented by a user-initiated even (i.e. pressing a button) are defined 
+ * by the menuController class.
+ * 
+ * @author thomaschristinck
+ *
+ */
 public class MenuPage extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
 	//UI elements for Items
@@ -67,13 +75,13 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 
 	
-	/* new form EventRegistrationPage */
+	// Creates new MenuPage
 	public MenuPage(){
 		initComponents();
 		refreshData();
 	}
 
-	/* This method is called from within the constructor to initialize the form*/
+	// This method is called from within the constructor to initialize the form
 	private void initComponents(){
 		//Elements for Error message
 		errorMessage = new JLabel();
@@ -222,7 +230,12 @@ private static final long serialVersionUID = -8062635784771606869L;
 	
 	
 	
-		//layout
+		/**
+		 * Layout: First we have the Horizontal Layout (Components listed top to bottom, parallel groups
+		 * listed from left to right), and then the Vertical Layout (Components listed left to right, parallel
+		 * groups from top to bottom). The location of the content pane is set and the window is sized using 
+		 * pack().
+		 */
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setAutoCreateGaps(true);
@@ -360,6 +373,10 @@ private static final long serialVersionUID = -8062635784771606869L;
 		}
 	}
 	
+	/*
+	 * Listed below are methods that are called when a button is pressed. The appropriate method in the menuController
+	 * class is called with input from the user
+	 */
 	private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt){
 		//Call the controller
 		MenuController mc = new MenuController();
