@@ -9,6 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+/**
+ * The mainMenu class is set to visible when the application starts. From this page, you can navigate
+ * to either of the three other pages. From the other pages, you can always return back to the main menu.
+ * 
+ * @author thomaschristinck
+ *
+ */
 public class MainMenu extends JFrame {
 private static final long serialVersionUID = -8062635784771606869L;
 	//UI elements for Items
@@ -22,7 +29,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 		refreshData();
 	}
 
-	/* This method is called from within the constructor to initialize the form*/
+	// This method is called from within the constructor to initialize the form
 	private void initComponents(){
 		
 		//Elements for adding/removing supplies to item, adding/removing items
@@ -78,7 +85,7 @@ private static final long serialVersionUID = -8062635784771606869L;
 
 		
 	
-		//layout
+		//The main menu layout is quite simple; three buttons stacked on top of eachother
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setAutoCreateGaps(true);
