@@ -1,4 +1,5 @@
-Desktop - Final application (runnable .jar) and source code can be found under releases, tagged as version 1.0.
+Desktop - Final application (runnable .jar) and source code can be found under releases, tagged as version 1.0. We were unable to get the java application into a folder.
+
 
 Web - 
 
