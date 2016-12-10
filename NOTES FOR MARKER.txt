@@ -1,7 +1,7 @@
 Desktop - Final application (runnable .jar) and source code can be found under releases, tagged as version 1.0. We were unable to get the java application into a folder.
 
 
-Web - See folder TEam-6/WEB
+Web - See folder Team-6/WEB
 
 Android - See repository Team-6-Android-App in the same organization
 
