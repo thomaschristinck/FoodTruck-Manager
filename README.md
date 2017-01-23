@@ -2,13 +2,13 @@
 McGill ECSE 321 - Repository for Team-6 Food Truck Management System Java/Web Apps
 
 -Desktop - Final application (runnable .jar) and source code can be found under releases, tagged as version 1.0. We were unable to get the java application into a folder.		
--		Primary Author : Thomas Christinck
+-	Primary Author : Thomas Christinck
  		
 -Web - See folder Team-6/WEB		
--		Primary Author : Julien Courbebasse
+-	Primary Author : Julien Courbebasse
  
 -Android - See repository Team-6-Android-App in the same organization		
--		Primary Authors : Max Henri-Rousseau, Cyril Abi-Aad
+-	Primary Authors : Max Henri-Rousseau & Cyril Abi-Aad
  
  
  
